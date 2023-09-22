@@ -4,3 +4,20 @@
 *:after {
   box-sizing: border-box;
 }
+
+@media only screen and (min-width: 1rem){
+  
+  body {
+      background: #a59cd3;
+    }
+}
+html {
+  max-width: 1050px;
+  margin: 0 auto;
+  background-image: url('../images/site/checkerboard.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #f0f0f0; /* Fallback color */
+  z-index: 1;
+}
