@@ -6,6 +6,9 @@
 }
 
 @media only screen and (min-width: 1rem){
+  #tools{
+    text-align: center;
+  }
   a {
     text-decoration: none;
   }
@@ -104,6 +107,22 @@
   .review{
     font-size: 1.2rem;
     line-height: 2rem;
+  }
+  .upgrade {
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap:10px;
+  }
+  .grid{
+    display:flex;
+    flex-flow: column;
+    gap:15px;
+    position: relative;
+    left:70px;
+  }
+  .img-tool{
+    width:60px;
   }
 }
 @media only screen and (min-width: 64rem) {
