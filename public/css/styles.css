@@ -127,8 +127,6 @@
     display: flex;
     flex-flow: column;
     gap: 15px;
-    position: relative;
-    left: 70px;
     align-items: center;
     justify-content: center;
   }
@@ -136,6 +134,12 @@
   .img-tool {
     width: 60px;
   }
+.grid {
+  background-color:#4C96D7;
+}
+.grid a {
+  background-color: #f0f0f0;
+}
 }
 
 /*---------------------------------------------------------------------------------------*/
@@ -155,7 +159,7 @@
   main {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 0.25fr repeat(2, 1fr);
-        gap: 128px;
+    row-gap: 128px;
   }
   main h1{
     font-size:50px;
@@ -178,6 +182,11 @@
   .upg {
     grid-column:1/2;
     grid-row:3/4;
+    position: relative;
+    left:-5%;
+  }
+  .upg > h2, .review > h2 {
+    text-align:center;
   }
 
   #delorean {
@@ -206,9 +215,9 @@ button {
   position:absolute;
   top:70%;
 }
-
 .grid {
-  background-color:#4C96D7;
+  position: relative;
+  left: 40px;
 }
 
 }
