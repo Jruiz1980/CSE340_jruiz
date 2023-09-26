@@ -137,12 +137,12 @@
   .img-tool {
     width: 60px;
   }
-.grid {
-  background-color:#4C96D7;
-}
-.grid a {
-  background-color: #f0f0f0;
-}
+  .grid {
+    background-color:#4C96D7;
+  }
+  .grid a {
+    background-color: #f0f0f0;
+  }
 }
 
 /*---------------------------------------------------------------------------------------*/
