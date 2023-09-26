@@ -159,20 +159,23 @@
     background-color: #f0f0f0;
     z-index: 1;
   }
+  
   main {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 0.25fr repeat(2, 1fr);
     row-gap: 128px;
   }
+
   main h1{
     font-size:50px;
     grid-column:1/3;
   }
 
-    .hero {
-      grid-column:1/3;
-      grid-row:2/3;
-    }
+  .hero {
+    grid-column:1/3;
+    grid-row:2/3;
+  }
+
   .review {
     grid-column:2/3;
     grid-row:3/4;
@@ -206,21 +209,21 @@
     height: 90%;
   }
 
-.content h2 {
-  font-size:40px;
-}
+  .content h2 {
+    font-size:40px;
+  }
 
-.content p {
-  font-size: 30px;
-}
+  .content p {
+    font-size: 30px;
+  }
 
-button {
-  position:absolute;
-  top:70%;
-}
-.grid {
-  position: relative;
-  left: 40px;
-}
+  button {
+    position:absolute;
+    top:70%;
+  }
+  .grid {
+    position: relative;
+    left: 40px;
+  }
 
 }
