@@ -12,21 +12,27 @@ const app = express()
 const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
 
+
 /* ***********************
  * View Engine and Templates
  *************************/
 app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout") // not at views root
+
+
+
 /* ***********************
  * Routes
  *************************/
-/*app.use(static)
-app.get("/", function(req, res) {
-  res.render("index", {title:"Home"})
-})*/
+app.use(static);
+
 // Inventory routes
 app.use("/inv", inventoryRoute)
+
+//Index route
+app.get("/", baseController.buildHome)
+
 
 /* ***********************
  * Local Server Information
@@ -34,6 +40,7 @@ app.use("/inv", inventoryRoute)
  *************************/
 const port = process.env.PORT
 const host = process.env.HOST
+
 
 /* ***********************
  * Log statement to confirm server operation
