@@ -24,7 +24,6 @@ Util.getNav = async function (req, res, next) {
   return list;
 };
 
-module.exports = Util;
 
 
 /* **************************************
@@ -59,3 +58,5 @@ Util.buildClassificationGrid = async function(data){
   }
   return grid
 }
+
+module.exports = Util;
