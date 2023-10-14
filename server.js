@@ -42,7 +42,7 @@ app.use(async (req, res, next) => {
   const errorMessage = {
     status: 404,
     message: 'Sorry, we appear to have lost that page.',
-    image: '<img src="./public/images/site/error.png" alt="Error image">',
+    image: '<img src="/images/site/error.png" alt="Error image">',
   };
   next(errorMessage);
 });
@@ -57,7 +57,7 @@ app.use(async (err, req, res, next) => {
   res.render("errors/error", {
     title: err.status || "Server Error",
     message: err.message,
-    image: '<img src="./public/images/site/error.png" alt="Error image">',
+    image: '<img src="/images/site/error.png" alt="Error image">',
     nav,
   });
 })
