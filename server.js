@@ -35,9 +35,18 @@ app.use("/inv", inventoryRoute)
 app.get("/", baseController.buildHome)
 
 // File Not Found Route - must be last route in list
+
+/*pp.use(async (req, res, next) => {
+  const errorMessage = {
+    status: 404,
+    message: 'Sorry, we appear to have lost that page.',
+    image: '<img src="/public/images/site/error.png" alt="Error image">',
+  };
+  next(errorMessage);
+});*/
 app.use(async (req, res, next) => {
-  next({status: 404, message: 'Sorry, we appear to have lost that page.'})
-})
+  next({ status: 404, message: "Sorry, we appear to have lost that page." });
+});
 
 /* ***********************
 * Express Error Handler
@@ -52,6 +61,8 @@ app.use(async (err, req, res, next) => {
     nav
   })
 })
+
+
 
 /* ***********************
  * Local Server Information
