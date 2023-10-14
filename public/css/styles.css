@@ -15,7 +15,7 @@
     border: 4px solid #4C96D7;
   }
 
-  main {
+  .dir {
     font-family: 'Open Sans', Helvetica, sans-serif;
     display: grid;
     grid-template-columns: 1fr;
@@ -67,10 +67,17 @@
   .siteName {
     font-size: 2.5rem;
   }
+  #error-display {
+    display:contents;
+  }
   .error {
     display:flex;
     flex-direction: column;
     align-items: center;
+  }
+  .error>img {
+    width:100%;
+    height:auto;
   }
   /*--------------------------------*/
 
@@ -184,7 +191,8 @@
     z-index: 1;
   }
   
-  main {
+  .dir {
+    display:grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 0.25fr repeat(2, 1fr);
     row-gap: 128px;
@@ -206,6 +214,7 @@
   }
 
   .review ul li {
+    display:grid;
     font-size:1.3rem;
     line-height: 3rem;
   }
@@ -252,5 +261,9 @@
   
   .error {
     grid-column:1/3;
+  }
+  .error>img {
+    width: 70%;
+    height: auto;
   }
 }
