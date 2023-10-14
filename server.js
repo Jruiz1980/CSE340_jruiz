@@ -12,6 +12,7 @@ const static = require("./routes/static")
 const inventoryRoute = require("./routes/inventoryRoute")
 const expressLayouts = require("express-ejs-layouts")
 const baseController = require("./controllers/baseController")
+const utilities = require("./utilities/index");
 
 
 /* ***********************
@@ -19,6 +20,7 @@ const baseController = require("./controllers/baseController")
  *************************/
 app.set("view engine", "ejs")
 app.use(expressLayouts)
+app.use(express.static("public"))
 app.set("layout", "./layouts/layout") // not at views root
 
 
@@ -36,16 +38,13 @@ app.get("/", baseController.buildHome)
 
 // File Not Found Route - must be last route in list
 
-/*pp.use(async (req, res, next) => {
+app.use(async (req, res, next) => {
   const errorMessage = {
     status: 404,
     message: 'Sorry, we appear to have lost that page.',
-    image: '<img src="/public/images/site/error.png" alt="Error image">',
+    image: '<img src="./public/images/site/error.png" alt="Error image">',
   };
   next(errorMessage);
-});*/
-app.use(async (req, res, next) => {
-  next({ status: 404, message: "Sorry, we appear to have lost that page." });
 });
 
 /* ***********************
@@ -56,10 +55,11 @@ app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav()
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
   res.render("errors/error", {
-    title: err.status || 'Server Error',
+    title: err.status || "Server Error",
     message: err.message,
-    nav
-  })
+    image: '<img src="./public/images/site/error.png" alt="Error image">',
+    nav,
+  });
 })
 
 
