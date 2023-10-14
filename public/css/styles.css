@@ -67,9 +67,7 @@
   .siteName {
     font-size: 2.5rem;
   }
-  #error-display {
-    display:contents;
-  }
+
   .error {
     display:flex;
     flex-direction: column;
