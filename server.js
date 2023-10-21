@@ -37,7 +37,6 @@ app.get("/", utilities.handleErrors(baseController.buildHome));
 app.use("/inv", require("./routes/inventoryRoute"));
 
 // File Not Found Route - must be last route in list
-
 app.use(async (req, res, next) => {
   const errorMessage = {
     status: 404,
@@ -47,10 +46,10 @@ app.use(async (req, res, next) => {
   next(errorMessage);
 });
 
-/* ***********************
-* Express Error Handler
-* Place after all other middleware
-*************************/
+/* ********************************
+*  Express Error Handler
+*  Place after all other middleware
+*********************************** */
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav()
   console.error(`Error at: "${req.originalUrl}": ${err.message}`)
@@ -67,15 +66,12 @@ app.use(async (err, req, res, next) => {
   })
 })
 
-
-
 /* ***********************
  * Local Server Information
  * Values from .env (environment) file
  *************************/
 const port = process.env.PORT
 const host = process.env.HOST
-
 
 /* ***********************
  * Log statement to confirm server operation
