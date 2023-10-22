@@ -56,8 +56,30 @@ Util.buildClassificationGrid = async function(data){
   } else { 
     grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
   }
-  return grid
-}
+  return grid;
+
+};
+
+
+/* **************************************
+ * Build the detail view HTML
+ * ************************************ */
+Util.buildDetailView = async function (vehicle) {
+  const formatter = new Intl.NumberFormat("en-US");
+
+  const html = `
+    <div class="vehicle-detail">
+      <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${
+    vehicle.inv_model
+  }" />
+      <p>Year: ${vehicle.inv_year}</p>
+      <p>Price: $${formatter.format(vehicle.inv_price)}</p>
+      <p>Mileage: ${formatter.format(vehicle.inv_mileage)} miles</p>
+    </div>
+  `;
+
+  return html;
+};
 
 /* ****************************************
  * Middleware For Handling Errors

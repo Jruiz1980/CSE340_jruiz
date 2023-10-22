@@ -14,16 +14,13 @@ const expressLayouts = require("express-ejs-layouts")
 const baseController = require("./controllers/baseController")
 const utilities = require("./utilities/index");
 
-
 /* ***********************
  * View Engine and Templates
  *************************/
 app.set("view engine", "ejs")
 app.use(expressLayouts)
-app.use(express.static("public"))
 app.set("layout", "./layouts/layout") // not at views root
-
-
+app.use(express.static("public"));
 
 /* ***********************
  * Routes
