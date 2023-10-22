@@ -63,7 +63,7 @@ Util.buildClassificationGrid = async function(data){
 
 /* **************************************
  * Build the detail view HTML
- * ************************************ */
+ * ************************************ 
 Util.buildDetailView = async function (vehicle) {
   const formatter = new Intl.NumberFormat("en-US");
 
@@ -79,7 +79,36 @@ Util.buildDetailView = async function (vehicle) {
   `;
 
   return html;
-};
+};*/
+
+
+/* **************************************
+* Build the vehicle details view HTML
+* ************************************ */
+// single vehicle details page
+Util.buildDetailView = async function (data) {
+    if (data?.[0]) {
+        let vehicle = data[0]
+        let grid = `
+            <div class="vehicleContainer">
+                <img class ="vehiclaDetailImage" src="${vehicle.inv_image}" alt=" picture of ${vehicle.inv_make}">
+                <div class="detailsContent">
+                    <p class="vdesc vInfo">Description: ${vehicle.inv_description}</p>
+                    <p class="vmake vInfo">Make: ${vehicle.inv_make}</p>
+                    <p class="vmodel vInfo">Model: ${vehicle.inv_model}</p>
+                    <p class="vyear vInfo">Year: ${vehicle.inv_year}</p>
+                    <p class="vprice vInfo">Price: ${Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(vehicle.inv_price)}</p>
+                    <p class="vmileage vInfo">Mileage: ${Intl.NumberFormat('en-US').format(vehicle.inv_miles)}</p>
+                    <p class="vcolor vInfo">Color: ${vehicle.inv_color}</p>
+                </div>
+            </div>
+        `
+        return grid;
+    }
+    else {
+        return '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+    }
+}
 
 /* ****************************************
  * Middleware For Handling Errors
