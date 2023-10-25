@@ -2,6 +2,7 @@ const pool = require("../database/");
 
 /* ***************************
  *  Get all classification data
+ *  Week 1. Unit 3
  * ************************** */
 async function getClassifications() {
   return await pool.query(
@@ -30,21 +31,25 @@ async function getInventoryByClassificationId(classification_id) {
 
 /* ********************
  * Get vehicle detail data by inv_id
- * ********************/
+ * *******************
 async function getInventoryItemById(inv_id) {
   try {
     const data = await pool.query(
-      `SELECT * FROM public.inventory WHERE inv_id = $1`,
+      `SELECT * FROM public.inventory AS i 
+        JOIN public.classification AS c 
+        ON i.classification_id = c.classification_id
+        WHERE i.inv_id = $1`,
       [inv_id]
     );
+    console.log({ rows: JSON.stringify(data.rows, null, 2) });
     return data.rows;
   } catch (error) {
     console.error("getInventoryItemById error " + error);
   }
 }
+*/
 
  module.exports = {
    getClassifications,
-   getInventoryByClassificationId,
-   getInventoryItemById,
- };
+   getInventoryByClassificationId
+ }

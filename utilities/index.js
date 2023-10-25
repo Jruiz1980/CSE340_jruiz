@@ -19,7 +19,7 @@ Util.getNav = async function (req, res, next) {
       row.classification_name +
       "</a>";
     list += "</li>";
-  });
+  })
   list += "</ul>";
   return list;
 };
@@ -56,9 +56,9 @@ Util.buildClassificationGrid = async function(data){
   } else { 
     grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
   }
-  return grid;
+  return grid
 
-};
+}
 
 
 /* **************************************
@@ -84,7 +84,7 @@ Util.buildDetailView = async function (vehicle) {
 
 /* **************************************
 * Build the vehicle details view HTML
-* ************************************ */
+* ************************************ 
 // single vehicle details page
 Util.buildDetailView = async function (data) {
     if (data?.[0]) {
