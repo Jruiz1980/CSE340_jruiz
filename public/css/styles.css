@@ -155,8 +155,82 @@
   }
 }
 
-/*---------------------------------------------------------------------------------------*/
-/*---------------------------------------------------------------------------------------*/
+/* inventory cards display */
+.vehicleInvName>a {
+  color: black;
+}
+
+#inv-display {
+  display: flex;
+  flex-wrap: wrap;
+  /* flex-direction: column; */
+  gap: 20px;
+  justify-content: center;
+  /* width: 300px; */
+}
+
+.vehicleCard {
+  flex-direction: column;
+  box-shadow: 0px 1px 5px grey;
+  /* width: 300px; */
+}
+
+/* card details view */
+.vehicleContainer {
+  /*parent*/
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 30px;
+  padding: 30px;
+}
+
+.detailsContent {
+  box-shadow: 0px 1px 5px grey;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px;
+  align-items: flex-start;
+  /* font-size: 1em; */
+}
+
+.vmake,
+.vmodel,
+.vyear {
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+.errImage {
+  display: block;
+  margin: auto;
+  height: 50%;
+  width: 50%;
+}
+
+.loginForm {
+  background-color: lightblue;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  max-width: 40%;
+  margin: auto;
+}
+
+.loginFields {
+  display: inherit;
+  flex-direction: inherit;
+}
+
+#wrapper>main>p {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+/*---------------------------------------------------------------------------------------
+*****************************************************************************************
+---------------------------------------------------------------------------------------*/
 
 @media only screen and (min-width: 37.5rem) {
 
@@ -174,10 +248,11 @@
 }
 
 
-/*---------------------------------------------------------------------------------------*/
-/*---------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------
+*****************************************************************************************
+---------------------------------------------------------------------------------------*/
 
-@media only screen and (min-width: 64rem) {
+@media only screen and (min-width: 44rem) {
   html {
     background-image: url('../images/site/small_check.jpg');
     max-width: 1400px;
