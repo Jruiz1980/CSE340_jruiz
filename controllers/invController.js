@@ -16,26 +16,26 @@ invCont.buildByClassificationId = async function (req, res, next) {
     title: className + " vehicles",
     nav,
     grid,
-  });
-};
+  })
+}
 
 
 /* ***************************
  *  Build vehicle detail view
  * ************************** 
-let isDetailViewProcessed = false; // flag because detail build is called twice
+let isDetailViewProcessed = false; */ // flag because detail build is called twice
 
-invCont.getInventoryItemById = async function (req, res, next) {
-  const inv_id = req.params.inv_id;
-  const data = await invModel.getInventoryByClassificationId(inv_id);
-  const grid = await utilities.getInventoryItemById(data);
-  let nav = await utilities.getNav();
-  const className = data[0].inv_model;
-  res.render("./inventoy/vehicle", {
+invCont.buildDetailViewById = async function (req, res, next) {
+  const inv_id = req.params.inv_id
+  const data = await invModel.getInventoryItemById(inv_id)
+  const grid = await utilities.buildDetailView(data)
+  let nav = await utilities.getNav()
+  const className = data[0].inv_model
+  res.render("./inventory/vehicle", {
     title: className + " vehicles",
     nav,
     grid,
-  });
-};
-*/
+  })
+}
+
 module.exports = invCont

@@ -31,7 +31,7 @@ async function getInventoryByClassificationId(classification_id) {
 
 /* ********************
  * Get vehicle detail data by inv_id
- * *******************
+ * ********************/
 async function getInventoryItemById(inv_id) {
   try {
     const data = await pool.query(
@@ -40,16 +40,16 @@ async function getInventoryItemById(inv_id) {
         ON i.classification_id = c.classification_id
         WHERE i.inv_id = $1`,
       [inv_id]
-    );
-    console.log({ rows: JSON.stringify(data.rows, null, 2) });
-    return data.rows;
+    )
+    return data.rows
   } catch (error) {
-    console.error("getInventoryItemById error " + error);
+    console.error("getInventoryItemById error " + error)
   }
 }
-*/
+
 
  module.exports = {
    getClassifications,
-   getInventoryByClassificationId
+   getInventoryByClassificationId,
+   getInventoryItemById
  }

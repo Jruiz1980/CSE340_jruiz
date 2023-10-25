@@ -10,7 +10,7 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.build
 // Route for detail view
 router.get(
   "/detail/:inv_id",
-  utilities.handleErrors(invController.getInventoryItemById)
+  utilities.handleErrors(invController.buildDetailViewById)
 );
 
 

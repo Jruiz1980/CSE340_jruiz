@@ -63,11 +63,11 @@ Util.buildClassificationGrid = async function(data){
 
 /* **************************************
  * Build the detail view HTML
- * ************************************ 
+ * ************************************ */
 Util.buildDetailView = async function (vehicle) {
   const formatter = new Intl.NumberFormat("en-US");
 
-  const html = `
+  const grid = `
     <div class="vehicle-detail">
       <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${
     vehicle.inv_model
@@ -76,10 +76,9 @@ Util.buildDetailView = async function (vehicle) {
       <p>Price: $${formatter.format(vehicle.inv_price)}</p>
       <p>Mileage: ${formatter.format(vehicle.inv_mileage)} miles</p>
     </div>
-  `;
-
-  return html;
-};*/
+  `
+  return grid
+}
 
 
 /* **************************************
@@ -87,9 +86,9 @@ Util.buildDetailView = async function (vehicle) {
 * ************************************ 
 // single vehicle details page
 Util.buildDetailView = async function (data) {
-    if (data?.[0]) {
-        let vehicle = data[0]
-        let grid = `
+    let grid
+    if (data.length >0) {
+        data.forEach(vehicle => {` 
             <div class="vehicleContainer">
                 <img class ="vehiclaDetailImage" src="${vehicle.inv_image}" alt=" picture of ${vehicle.inv_make}">
                 <div class="detailsContent">
@@ -102,13 +101,13 @@ Util.buildDetailView = async function (data) {
                     <p class="vcolor vInfo">Color: ${vehicle.inv_color}</p>
                 </div>
             </div>
-        `
-        return grid;
+            `})
+        return grid
     }
     else {
         return '<p class="notice">Sorry, no matching vehicles could be found.</p>'
     }
-}
+}*/
 
 /* ****************************************
  * Middleware For Handling Errors
@@ -117,4 +116,4 @@ Util.buildDetailView = async function (data) {
  **************************************** */
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
-module.exports = Util;
+module.exports = Util

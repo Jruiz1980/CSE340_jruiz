@@ -136,7 +136,7 @@
     gap: 10px;
   }
 
-  .grid {
+  .grid0 {
     display: flex;
     flex-flow: column;
     gap: 15px;
@@ -147,10 +147,10 @@
   .img-tool {
     width: 60px;
   }
-  .grid {
+  .grid0 {
     background-color:#4C96D7;
   }
-  .grid a {
+  .grid0 a {
     background-color: #f0f0f0;
   }
 }
@@ -258,7 +258,7 @@
     position:absolute;
     top:70%;
   }
-  .grid {
+  .grid0 {
     position: relative;
     left: 40px;
   }
