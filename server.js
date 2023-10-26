@@ -49,7 +49,7 @@ app.use(async (req, res, next) => {
 *********************************** */
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav()
-  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
+  //console.error(`Error at: "${req.originalUrl}": ${err.message}`)
   if(err.status == 404) {
     message = err.message,
     image = '<img src="/images/site/error.png" alt="Error image">'
