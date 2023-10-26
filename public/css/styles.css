@@ -255,7 +255,7 @@
 @media only screen and (min-width: 44rem) {
   html {
     background-image: url('../images/site/small_check.jpg');
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
     background-size: cover;
     background-position: center;
