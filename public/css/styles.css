@@ -161,7 +161,7 @@
 
 /************ inventory cards display ***********/
 .vehicleInvName>a {
-  color: #4C96D7;
+  color: #094e8a;
 }
 
 #inv-display {
@@ -206,7 +206,7 @@
   .vyear {
     font-weight: bold;
     font-size: 1.3em;
-    color:#4C96D7;
+    color:#094e8a;
   }
 .vehicleInvName > a, .price  {
 
