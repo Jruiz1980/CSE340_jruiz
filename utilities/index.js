@@ -50,7 +50,7 @@ Util.buildClassificationGrid = async function (data) {
         vehicle.inv_model +
         ' on CSE Motors" /></a>';
       grid += '<div class="namePrice">';
-      grid += "<hr />";
+      grid += '<hr class="line" />';
       grid += '<h2 class="vehicleInvName">';
       grid +=
         '<a href="../../inv/detail/' +
@@ -66,7 +66,7 @@ Util.buildClassificationGrid = async function (data) {
         "</a>";
       grid += "</h2>";
       grid +=
-        "<span>$" +
+        "<span class='price'>$" +
         new Intl.NumberFormat("en-US").format(vehicle.inv_price) +
         "</span>"; // how to format price
       grid += "</div>";
