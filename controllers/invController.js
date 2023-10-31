@@ -32,7 +32,7 @@ invCont.buildDetailViewById = async function (req, res, next) {
   let nav = await utilities.getNav()
   const className = data[0].inv_model
   res.render("./inventory/vehicle", {
-    title: className + " vehicles",
+    title: className + " vehicle",
     nav,
     grid,
   })
