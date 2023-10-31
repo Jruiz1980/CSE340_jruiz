@@ -99,26 +99,36 @@ Util.buildDetailView = async function (data) {
     let grid = `
             <div class="vehicleContainer">
               <img class ="vehiclaDetailImage" src="${
-                vehicle.inv_image}" alt=" picture of ${
-                  vehicle.inv_make}">
+                vehicle.inv_image
+              }" alt=" picture of ${vehicle.inv_make}">
               <div class="detailsContent">
                 <p class="vdesc vInfo">Description: ${
-                  vehicle.inv_description}</p>
-                <p class="vmake vInfo">Make: ${
-                  vehicle.inv_make}</p>
-                <p class="vmodel vInfo">Model: ${
-                  vehicle.inv_model}</p>
-                <p class="vyear vInfo">Year: ${
-                  vehicle.inv_year}</p>
-                <p class="vprice vInfo">Price: ${
-                  Intl.NumberFormat("en-US",
-                  {style: "currency", currency: "USD"}
+                  vehicle.inv_description
+                }</p>
+                <p class="vmake vInfo"><span class='bold-maker'>Make: </span>${
+                  vehicle.inv_make
+                }</p>
+                <p class="vmodel vInfo"><span class='bold-maker'>Model: </span>${
+                  vehicle.inv_model
+                }</p>
+                <p class="vyear vInfo"><span class='bold-maker'>Year: </span>${
+                  vehicle.inv_year
+                }</p>
+                <p class="vprice vInfo"><span class='bold-maker'>Price: </span>${
+                  Intl.NumberFormat(
+                  "en-US",
+                  {
+                    style: "currency",
+                    currency: "USD",
+                  }
                 ).format(vehicle.inv_price)}</p>
-                <p class="vmileage vInfo">Mileage: ${
-                  Intl.NumberFormat("en-US"
-                  ).format(vehicle.inv_miles)}</p>
-                <p class="vcolor vInfo">Color: ${
-                  vehicle.inv_color}</p>
+                <p class="vmileage vInfo"><span class='bold-maker'>Mileage: </span>${
+                  Intl.NumberFormat(
+                  "en-US"
+                ).format(vehicle.inv_miles)}</p>
+                <p class="vcolor vInfo"><span class='bold-maker'>Color: </span>${
+                  vehicle.inv_color
+                }</p>
               </div>
             </div>
         `;

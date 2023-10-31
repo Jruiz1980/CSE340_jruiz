@@ -203,11 +203,18 @@
 
   .vmake,
   .vmodel,
-  .vyear {
-    font-weight: bold;
+  .vyear,
+  .vprice,
+  .vmileage,
+  .vcolor {
     font-size: 1.3em;
     color:#094e8a;
   }
+
+  .bold-maker {
+      font-weight: bold;
+  }
+
 .vehicleInvName > a, .price  {
 
   font-size: 1.5rem;
