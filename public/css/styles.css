@@ -201,12 +201,22 @@
   padding: 30px;
 }
 
-  .vmake,
-  .vmodel,
-  .vyear {
+  .vmake::first-letter,
+  .vmodel::first-letter,
+  .vyear::first-letter,
+  .vprice::first-letter,
+  .vmileage::first-letter,
+  .vcolor::first-letter {
     font-weight: bold;
+  }
+  .vmake, 
+  .vmodel,
+  .vyear,
+  .vprice,
+  .vmileage,
+  .vcolor {
     font-size: 1.3em;
-    color:#094e8a;
+    color: #094e8a;
   }
 .vehicleInvName > a, .price  {
 
