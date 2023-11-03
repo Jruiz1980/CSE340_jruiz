@@ -58,6 +58,13 @@ app.get("/", utilities.handleErrors(baseController.buildHome));
 // Inventory routes
 app.use("/inv", require("./routes/inventoryRoute"));
 
+// Account Routes
+app.use("/account", require("./routes/accountRoute"));
+
+
+/********************* 
+ * Middleware
+ **********************/
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   const errorMessage = {
@@ -74,7 +81,7 @@ app.use(async (req, res, next) => {
 *********************************** */
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav()
-  //console.error(`Error at: "${req.originalUrl}": ${err.message}`)
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
   if(err.status == 404) {
     message = err.message,
     image = '<img src="/images/site/error.png" alt="Error image">'
