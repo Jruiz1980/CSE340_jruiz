@@ -1,19 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 <%- include('../partials/head') %>
 
-  <body>
-    <img class="background-image" src="/images/site/small_check.jpg" alt="checkerboard background">
-    <div class="content-container">
-      <div id="wrapper">
-        <%- include('../partials/header') %>
-          <%- include('../partials/navigation') %>
-            <main>
-              <%- body %>
-            </main>
-            <%- include('../partials/footer') %>
-      </div>
-    </div>
-  </body>
-
+  <img class="background-image" src="/images/site/small_check.jpg" alt="checkerboard background">
+  <div class="content-container">
+    <div id="wrapper">
+      <%- include('../partials/header') %>
+      <%- include('../partials/navigation') %>
+        <main>
+          <%- body %>
+        </main>
+        <%- include('../partials/footer') %>
+    </div>  
+  </div>
 </html>
