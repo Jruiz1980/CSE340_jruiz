@@ -1,4 +1,4 @@
-//const Util = require("../utilities")
+const utilities = require("../utilities")
 //const accountModel = require("../models/account-model")
 
 /* ****************************************
@@ -13,3 +13,4 @@ async function buildLogin(req, res, next) {
 }
 
 module.exports = { buildLogin }
+

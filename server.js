@@ -14,7 +14,7 @@ const static = require("./routes/static")
 const inventoryRoute = require("./routes/inventoryRoute")
 const expressLayouts = require("express-ejs-layouts")
 const baseController = require("./controllers/baseController")
-const utilities = require("./utilities/index");
+const utilities = require("./utilities/index")
 
 
 /* ***********************
@@ -50,16 +50,17 @@ app.use(express.static("public"));
 /* ***********************
  * Routes
  *************************/
-app.use(require("./routes/static"));
+
+app.use(require("./routes/static"))
 
 //Index route
-app.get("/", utilities.handleErrors(baseController.buildHome));
+app.get("/", utilities.handleErrors(baseController.buildHome))
 
 // Inventory routes
-app.use("/inv", require("./routes/inventoryRoute"));
+app.use("/inv", require("./routes/inventoryRoute"))
 
 // Account Routes
-app.use("/account", require("./routes/accountRoute"));
+app.use("/account", require("./routes/accountRoute"))
 
 
 /********************* 
