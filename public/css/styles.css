@@ -194,12 +194,12 @@
   padding: 30px;
 }
 
-.detailsContent {
+  .detailsContent {
   box-shadow: 0px 1px 5px #4C96D7;
   display: flex;
   flex-direction: column;
   padding: 30px;
-}
+  }
 
   .vmake,
   .vmodel,
@@ -215,13 +215,44 @@
       font-weight: bold;
   }
 
-.vehicleInvName > a, .price  {
+  .vehicleInvName > a, .price  {
 
   font-size: 1.5rem;
-}
+  }
   #wrapper>main>p {
     font-size: 2em;
     font-weight: bold;
+  }
+/***************Login*******************/
+  .login-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #4C96D7;
+    width: 65%;
+    margin: 0 auto;
+    background-color: #4C96D7;
+    padding: 38px;
+  }
+
+  .sign-in {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .submit {
+    position: absolute;
+    top: 45%;
+    width:64px;
+    height:30px;
+    font-size:1rem;
+  }
+
+  .email-wrapper,
+  .password-wrapper {
+    display: flex;
+    flex-direction: column;
   }
 }
 /*---------------------------------------------------------------------------------------
@@ -245,6 +276,14 @@
   .vehicleCard {
     flex-basis: calc(40% - 33px);
     height: 350px;
+  }
+
+  /*******login********/
+  .login-wrapper{
+    width:45%;
+  }
+  .submit {
+    top:100%;
   }
 }
 
@@ -359,11 +398,19 @@
       height:auto;
       flex-grow:3;
     }
-    .detailsContent > p{
+    .detailsContent > p {
       font-size:0.8em;
     }
     .detailsContent {
       padding:0;
       flex-grow:1;
     }
+
+  /**********Login**********/
+  .login-wrapper{
+    width:40%;
+  }
+  .submit {
+    top:55%;
+  }
 }
