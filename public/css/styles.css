@@ -231,8 +231,9 @@
     border: 1px solid #4C96D7;
     width: 65%;
     margin: 0 auto;
-    background-color: #4C96D7;
-    padding: 38px;
+    background-color: #094e8a;
+    color:white;
+    padding-bottom: 130px;
   }
 
   .sign-in {
@@ -243,7 +244,7 @@
 
   .submit {
     position: absolute;
-    top: 45%;
+    top: 40%;
     width:64px;
     height:30px;
     font-size:1rem;
@@ -254,6 +255,18 @@
     display: flex;
     flex-direction: column;
   }
+  #account_email, #account_password {
+    width: 200px;
+    height: 20px;
+  }
+  .sign-up {
+    color:wheat;
+  }
+  .noAccount {
+    position:absolute;
+    top:46%;
+  }
+
 }
 /*---------------------------------------------------------------------------------------
 *****************************************************************************************
@@ -283,7 +296,15 @@
     width:45%;
   }
   .submit {
+    top:90%;
+  }
+  .noAccount {
     top:100%;
+  }
+  #account_email,
+  #account_password {
+    width: 230px;
+    height: 27px;
   }
 }
 
@@ -411,6 +432,10 @@
     width:40%;
   }
   .submit {
-    top:55%;
+    top:50%;
   }
+  .noAccount {
+    top:57%;
+  }
+
 }
