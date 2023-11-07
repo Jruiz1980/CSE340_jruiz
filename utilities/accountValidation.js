@@ -1,26 +1,39 @@
-/*const Util = require(".");
-//const accountModel = require("../models/account-model");
+//const utilities = require(".");
+const accountModel = require("../models/account-model");
 const { body, validationResult } = require("express-validator");
 const validate = {};
-
-/* **********************************
- * Login Data Validation Rules
- * ********************************* 
-validate.loginRules = () => {
+/*  **********************************
+ *  Registration Data Validation Rules
+ * ********************************* */
+validate.registationRules = () => {
   return [
+    // firstname is required and must be string
+    body("account_firstname")
+      .trim()
+      .isLength({ min: 1 })
+      .withMessage("Please provide a first name."),
+
+    // lastname is required and must be string
+    body("account_lastname")
+      .trim()
+      .isLength({ min: 2 })
+      .withMessage("Please provide a last name."),
+
+    // valid email is required and cannot already exist in the database
     body("account_email")
       .trim()
       .isEmail()
-      .normalizeEmail()
+      .normalizeEmail() // refer to validator.js docs
       .withMessage("A valid email is required.")
       .custom(async (account_email) => {
         const emailExists = await accountModel.checkExistingEmail(
           account_email
         );
-        if (!emailExists) {
-          throw new Error("Email does not exist.");
+        if (emailExists) {
+          throw new Error("Email exists. Please log in or use different email");
         }
       }),
+    // password is required and must be strong password
     body("account_password")
       .trim()
       .isStrongPassword({
@@ -30,13 +43,13 @@ validate.loginRules = () => {
         minNumbers: 1,
         minSymbols: 1,
       })
-      .withMessage("Password incorrect."),
+      .withMessage("Password does not meet requirements."),
   ];
 };
 
-/* ******************************
+/* *************************************************
  * Check data and return errors or continue to login
- * ***************************** 
+ * ************************************************* */
 validate.checkLogData = async (req, res, next) => {
   const { account_email } = req.body;
   const errors = validationResult(req);
@@ -54,4 +67,4 @@ validate.checkLogData = async (req, res, next) => {
   }
 };
 
-module.exports = validate;*/
+module.exports = validate;

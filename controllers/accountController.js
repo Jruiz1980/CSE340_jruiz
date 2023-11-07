@@ -1,5 +1,5 @@
 const utilities = require("../utilities")
-//const accountModel = require("../models/account-model")
+const accountModel = require("../models/account-model")
 
 /* ****************************************
 *  Deliver login view
@@ -12,5 +12,16 @@ async function buildLogin(req, res, next) {
   })
 }
 
-module.exports = { buildLogin }
+/* ****************************************
+*  Deliver register view
+* *************************************** */
+async function buildRegister(req, res, next) {
+  let nav = await accountModel.getNav()
+  res.render("account/register", {
+    title: "Register",
+    nav,
+  })
+}
+
+module.exports = { buildLogin, buildRegister }
 

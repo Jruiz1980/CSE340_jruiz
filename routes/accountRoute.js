@@ -16,10 +16,10 @@ const accountController = require("../controllers/accountController")
 // Define the GET route for the "/login" path
 router.get("/login", utilities.handleErrors(accountController.buildLogin));
 
-/* Process the login attempt
-router.post(
-  "/login",
-  utilities.handleErrors(accountController.loginAccount)
-)*/
+// Process the login attempt
+router.get(
+  "/register",
+  utilities.handleErrors(accountController.buildRegister)
+)
 
 module.exports = router;
