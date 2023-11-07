@@ -1,21 +1,24 @@
-<fieldset>
-    <label for="firstname">First name:</label>
-    <input type="text" name="account_firstname" id="accountFirstname" size="10"
-    required value="<%= locals.account_firstname %>">
-    <label for="lastname">Last name:</label>
-    <input type="text name="account_lastname" id="accountLastname"
-    required value="<%= locals.account_lastname %>">
-    <label for="email">Email Addres:</label>
-    <input type="email" name="account_email" id="accountEmail"
-    required value="<%= locals.account_email %>">
-    <label for="password">Password:</label>
-    <input type="password" name="account_password" id="accountPasword"
-    required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
-    <div>
-        <i>Password must be minimun of 12 charecters and include 1 capital
-        letter, 1 number and 1 special character.
-        </i>
-    </div>
-    <div id="pswdBtn">Show Password</div>
-    <button type="submit">Register</button>
-</fieldset>
+<div class="register-wrapper">
+    <h1> <%- title %></h1>
+    <fieldset>
+        <label for="firstname">First name:</label>
+        <input type="text" name="account_firstname" id="firstname" size="10"
+        required value="<%= locals.account_firstname %>">
+        <label for="lastname">Last name:</label>
+        <input type="text name="account_lastname" id="lastname"
+        required value="<%= locals.account_lastname %>">
+        <label for="email">Email Addres:</label>
+        <input type="email" name="account_email" id="email"
+        required value="<%= locals.account_email %>">
+        <label for="password">Password:</label>
+        <input type="password" name="account_password" id="password"
+        required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+        <div>
+            <i>Password must be minimun of 12 charecters and include 1 capital
+            letter, 1 number and 1 special character.
+            </i>
+        </div>
+        <span id="pswdBtn" onclick="showPassword()">Show Password</span>
+        <button class="rgsBtn" type="submit">Register</button>
+    </fieldset>
+</div>
