@@ -22,4 +22,10 @@ router.get(
   utilities.handleErrors(accountController.buildRegister)
 )
 
+// Process the register attempt
+router.post(
+  "/register",
+  utilities.handleErrors(accountController.registerAccount)
+);
+
 module.exports = router;

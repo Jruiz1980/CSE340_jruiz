@@ -274,7 +274,6 @@
     background-color:#094e8a;
     color:white;
     width:76%;
-    padding-bottom: 74px;
   }
   .register-wrapper fieldset {
     display:flex;
@@ -287,19 +286,16 @@
     height:22px;
   }
   .rgsBtn {
-    position:absolute;
-    top:67%;
-    width:29%;
+    width:35%;
     height:3%;
     font-size:1rem;
   }
   #pswdBtn {
-    position:absolute;
-    top:62%;
     background-color: white;
     color:#094e8a;
     font-weight: bold;
-    padding-inline: 1px;
+    padding-inline: 2px;
+    margin-block:1rem;
   }
   .register-wrapper h1 {
     padding-left: 11%;
@@ -369,20 +365,16 @@
      }
   
      .rgsBtn {
-       position: absolute;
-       top: 148%;
        width: 13%;
-       height: 6%;
+       height: 3%;
        font-size: 1rem;
      }
   
      #pswdBtn {
-       position: absolute;
-       top: 137%;
        background-color: white;
        color: #094e8a;
        font-weight: bold;
-       padding-inline: 1px;
+       padding-inline: 2px;
      }
   
      .register-wrapper h1 {
@@ -543,12 +535,12 @@
  }
 
  .rgsBtn {
-   top: 80%;
-   width: 10%;
-   height: 4%;
+    width: 10%;
+    height: 4%;
+    margin: 7% 2%;
  }
 
- #pswdBtn {
-    top: 72%;
- }
+ /*#pswdBtn {
+
+ }*/
 }
