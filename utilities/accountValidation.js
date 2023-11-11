@@ -70,6 +70,7 @@ validate.checkLogData = async (req, res, next) => {
       title: "Login",
       nav,
       account_email,
+      errors: null,
     });
   } else {
     next()
@@ -92,6 +93,7 @@ validate.checkRegData = async (req, res, next) => {
       account_firstname,
       account_lastname,
       account_email,
+      errors: null,
     })
     return
   }
