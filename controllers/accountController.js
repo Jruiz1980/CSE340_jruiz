@@ -49,7 +49,6 @@ accountController.registerAccount = async function (req, res) {
     res.status(201).render("account/login", {
       title: "Login",
       nav,
-      errors: null,
     });
   } else {
     req.flash("notice", "Sorry, the registration failed.")
@@ -60,4 +59,4 @@ accountController.registerAccount = async function (req, res) {
   }
 }
 
-module.exports = accountController
+module.exports = accountController;

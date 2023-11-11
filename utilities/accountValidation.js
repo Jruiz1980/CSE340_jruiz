@@ -70,7 +70,6 @@ validate.checkLogData = async (req, res, next) => {
       title: "Login",
       nav,
       account_email,
-      errors: null,
     });
   } else {
     next()
@@ -81,23 +80,21 @@ validate.checkLogData = async (req, res, next) => {
  * Check data and return errors or continue to registration
  * ***************************** */
 validate.checkRegData = async (req, res, next) => {
-  const { account_firstname, account_lastname, account_email } = req.body
-  /*let errors = []*/
-  const errors = validationResult(req)
+  const { account_firstname, account_lastname, account_email } = req.body;
+  const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    let nav = await utilities.getNav()
+    let nav = await utilities.getNav();
     res.render("account/register", {
-      errors: errors.array(),
+      errors,
       title: "Registration",
       nav,
       account_firstname,
       account_lastname,
       account_email,
-      errors: null,
-    })
-    return
+    });
+    return;
   }
-  next()
-}
+  next();
+};
 
 module.exports = validate
