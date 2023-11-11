@@ -233,7 +233,7 @@
     margin: 0 auto;
     background-color: #094e8a;
     color:white;
-    padding-bottom: 130px;
+    padding-bottom: 30px;
   }
 
   .sign-in {
@@ -243,8 +243,8 @@
   }
 
   .submit {
-    position: absolute;
-    top: 40%;
+    /*position: absolute;
+    top: 40%;*/
     width:64px;
     height:30px;
     font-size:1rem;
@@ -262,10 +262,10 @@
   .sign-up {
     color:wheat;
   }
-  .noAccount {
+  /*.noAccount {
     position:absolute;
     top:46%;
-  }
+  }*/
 /***************Register*******************/
   .register-wrapper {
     display:flex;
@@ -329,12 +329,12 @@
   .login-wrapper{
     width:45%;
   }
-  .submit {
+  /*.submit {
     top:90%;
-  }
-  .noAccount {
+  }*/
+  /*.noAccount {
     top:100%;
-  }
+  }*/
   #account_email,
   #account_password {
     width: 230px;
@@ -453,7 +453,7 @@
     font-size: 1.7rem;
   }
 
-  button {
+  .own {
     position:absolute;
     top:70%;
   }
@@ -505,12 +505,12 @@
   .login-wrapper{
     width:40%;
   }
-  .submit {
+  /*.submit {
     top:50%;
-  }
-  .noAccount {
+  }*/
+  /*.noAccount {
     top:57%;
-  }
+  }*/
 /**********Register*******/
  .register-wrapper {
    display: flex;

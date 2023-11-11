@@ -7,14 +7,14 @@ const utilities = require("../utilities/index")
 const express = require("express")
 const router = new express.Router()
 const accountController = require("../controllers/accountController")
-//const logValidate = require("../utilities/accountValidation");
+const regValidate = require("../utilities/accountValidation")
 
 /* ***********************
  * Deliver Login View
  *************************/
 
 // Define the GET route for the "/login" path
-router.get("/login", utilities.handleErrors(accountController.buildLogin));
+router.get("/login", utilities.handleErrors(accountController.buildLogin))
 
 // Process the login attempt
 router.get(
@@ -25,7 +25,9 @@ router.get(
 // Process the register attempt
 router.post(
   "/register",
+  regValidate.registationRules(),
+  regValidate.checkRegData,
   utilities.handleErrors(accountController.registerAccount)
 );
 
-module.exports = router;
+module.exports = router

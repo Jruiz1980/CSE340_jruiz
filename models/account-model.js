@@ -11,7 +11,7 @@ async function registerAccount(
 ) {
   try {
     const sql =
-      "INSERT INTO account (account_firstname, account_lastname, account_email, account_password, account_type) VALUES ($1, $2, $3, $4, 'Client') RETURNING *";
+      "INSERT INTO account (account_firstname, account_lastname, account_email, account_password, account_type) VALUES ($1, $2, $3, $4, 'Client') RETURNING *"
     return await pool.query(sql, [
       account_firstname,
       account_lastname,
@@ -19,7 +19,7 @@ async function registerAccount(
       account_password,
     ]);
   } catch (error) {
-    return error.message;
+    return error.message
   }
 }
 
@@ -28,16 +28,16 @@ async function registerAccount(
  * ********************* */
 async function checkExistingEmail(account_email) {
   try {
-    const sql = "SELECT * FROM account WHERE account_email = $1";
-    const result = await pool.query(sql, [account_email]);
+    const sql = "SELECT * FROM account WHERE account_email = $1"
+    const result = await pool.query(sql, [account_email])
     if (result.rowCount === 1) {
       // User found, return the user data
-      return result.rows[0];
+      return result.rows[0]
     }
     // User not found
-    return null;
+    return null
   } catch (error) {
-    return error.message;
+    return error.message
   }
 }
 

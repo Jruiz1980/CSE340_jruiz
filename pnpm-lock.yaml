@@ -32,9 +32,15 @@ dependencies:
   express-session:
     specifier: ^1.17.3
     version: 1.17.3
+  express-validator:
+    specifier: ^7.0.1
+    version: 7.0.1
   pg:
-    specifier: ^8.8.0
+    specifier: ^8.11.3
     version: 8.11.3
+  pg-promise:
+    specifier: ^11.5.4
+    version: 11.5.4
 
 devDependencies:
   nodemon:
@@ -86,6 +92,11 @@ packages:
 
   /array-flatten@1.1.1:
     resolution: {integrity: sha512-PCVAQswWemu6UdxsDFFX/+gVeYqKAod3D3UVm91jHwynguOwAvYPhx8nNlM++NqRcK6CxxpUafjmhIdKiHibqg==}
+    dev: false
+
+  /assert-options@0.8.1:
+    resolution: {integrity: sha512-5lNGRB5g5i2bGIzb+J1QQE1iKU/WEMVBReFIc5pPDWjcPj23otPL0eI6PB2v7QPi0qU6Mhym5D3y0ZiSIOf3GA==}
+    engines: {node: '>=10.0.0'}
     dev: false
 
   /async@3.2.4:
@@ -343,6 +354,14 @@ packages:
       - supports-color
     dev: false
 
+  /express-validator@7.0.1:
+    resolution: {integrity: sha512-oB+z9QOzQIE8FnlINqyIFA8eIckahC6qc8KtqLdLJcU3/phVyuhXH3bA4qzcrhme+1RYaCSwrq+TlZ/kAKIARA==}
+    engines: {node: '>= 8.0.0'}
+    dependencies:
+      lodash: 4.17.21
+      validator: 13.11.0
+    dev: false
+
   /express@4.18.2:
     resolution: {integrity: sha512-5/PsL6iGPdfQ/lKM1UuielYgv3BUoJfz1aUwU9vHZ+J7gyvwdQXFEBIEIaxeGf0GIcreATNyBExtalisDbuMqQ==}
     engines: {node: '>= 0.10.0'}
@@ -541,6 +560,10 @@ packages:
       minimatch: 3.1.2
     dev: false
 
+  /lodash@4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+    dev: false
+
   /lru-cache@6.0.0:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}
     engines: {node: '>=10'}
@@ -681,6 +704,11 @@ packages:
     engines: {node: '>=4.0.0'}
     dev: false
 
+  /pg-minify@1.6.3:
+    resolution: {integrity: sha512-NoSsPqXxbkD8RIe+peQCqiea4QzXgosdTKY8p7PsbbGsh2F8TifDj/vJxfuR8qJwNYrijdSs7uf0tAe6WOyCsQ==}
+    engines: {node: '>=12.0.0'}
+    dev: false
+
   /pg-numeric@1.0.2:
     resolution: {integrity: sha512-BM/Thnrw5jm2kKLE5uJkXqqExRUY/toLHda65XgFTBTFYZyopbKjBe29Ii3RbkvlsMoFwD+tHeGaCjjv0gHlyw==}
     engines: {node: '>=4'}
@@ -692,6 +720,18 @@ packages:
       pg: '>=8.0'
     dependencies:
       pg: 8.11.3
+    dev: false
+
+  /pg-promise@11.5.4:
+    resolution: {integrity: sha512-esYSkDt2h6NQOkfotGAm1Ld5OjoITJLpB88Z1PIlcAU/RQ0XQE2PxW0bLJEOMHPGV5iaRnj1Y7ARznXbgN4FNw==}
+    engines: {node: '>=14.0'}
+    dependencies:
+      assert-options: 0.8.1
+      pg: 8.11.3
+      pg-minify: 1.6.3
+      spex: 3.3.0
+    transitivePeerDependencies:
+      - pg-native
     dev: false
 
   /pg-protocol@1.6.0:
@@ -925,6 +965,11 @@ packages:
       semver: 7.5.4
     dev: true
 
+  /spex@3.3.0:
+    resolution: {integrity: sha512-VNiXjFp6R4ldPbVRYbpxlD35yRHceecVXlct1J4/X80KuuPnW2AXMq3sGwhnJOhKkUsOxAT6nRGfGE5pocVw5w==}
+    engines: {node: '>=10.0.0'}
+    dev: false
+
   /split2@4.2.0:
     resolution: {integrity: sha512-UcjcJOWknrNkF6PLX83qcHM6KHgVKNkV62Y8a5uYDVv9ydGQVwAHMKqHdJje1VTWpljG0WYpCDhrCdAOYH4TWg==}
     engines: {node: '>= 10.x'}
@@ -999,6 +1044,11 @@ packages:
   /utils-merge@1.0.1:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
+    dev: false
+
+  /validator@13.11.0:
+    resolution: {integrity: sha512-Ii+sehpSfZy+At5nPdnyMhx78fEoPDkR2XW/zimHEL3MyGJQOCQ7WeP20jPYRz7ZCpcKLB21NxuXHF3bxjStBQ==}
+    engines: {node: '>= 0.10'}
     dev: false
 
   /vary@1.1.2:

@@ -48,7 +48,7 @@ app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-
 app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout") // not at views root
-app.use(express.static("public"));
+app.use(express.static("public"))
 
 /* ***********************
  * Routes

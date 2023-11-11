@@ -1,7 +1,7 @@
-//const utilities = require(".");
-const accountModel = require("../models/account-model");
-const { body, validationResult } = require("express-validator");
-const validate = {};
+const utilities = require(".")
+const accountModel = require("../models/account-model")
+const { body, validationResult } = require("express-validator")
+const validate = {}
 /*  **********************************
  *  Registration Data Validation Rules
  * ********************************* */
@@ -30,7 +30,7 @@ validate.registationRules = () => {
           account_email
         );
         if (emailExists) {
-          throw new Error("Email exists. Please log in or use different email");
+          throw new Error("Email exists. Please log in or use different email")
         }
       }),
     // password is required and must be strong password
@@ -47,15 +47,24 @@ validate.registationRules = () => {
   ];
 };
 
+
+/* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for 
+ * General Error Handling
+ **************************************** 
+validate.handleErrors = (fn) => (req, res, next) =>
+  Promise.resolve(fn(req, res, next)).catch(next)
+
 /* *************************************************
  * Check data and return errors or continue to login
  * ************************************************* */
 validate.checkLogData = async (req, res, next) => {
-  const { account_email } = req.body;
-  const errors = validationResult(req);
+  const { account_email } = req.body
+  const errors = validationResult(req)
 
   if (!errors.isEmpty()) {
-    const nav = await Util.getNav();
+    const nav = await utilities.getNav();
     return res.render("account/login", {
       errors: errors.array(),
       title: "Login",
@@ -63,8 +72,30 @@ validate.checkLogData = async (req, res, next) => {
       account_email,
     });
   } else {
-    next();
+    next()
   }
 };
 
-module.exports = validate;
+/* ******************************
+ * Check data and return errors or continue to registration
+ * ***************************** */
+validate.checkRegData = async (req, res, next) => {
+  const { account_firstname, account_lastname, account_email } = req.body
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("account/register", {
+      errors,
+      title: "Registration",
+      nav,
+      account_firstname,
+      account_lastname,
+      account_email,
+    })
+    return
+  }
+  next()
+}
+
+module.exports = validate

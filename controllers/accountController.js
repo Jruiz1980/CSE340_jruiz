@@ -1,7 +1,7 @@
 const utilities = require("../utilities");
-const accountModel = require("../models/account-model");
+const accountModel = require("../models/account-model")
 
-const accountController = {};
+const accountController = {}
 /* *******************
  *  Deliver login view
  * ******************** */
@@ -10,6 +10,7 @@ accountController.buildLogin = async function (req, res, next) {
   res.render("account/login", {
     title: "Login",
     nav,
+    errors: null,
   });
 };
 
@@ -21,6 +22,7 @@ accountController.buildRegister = async function (req, res, next) {
   res.render("account/register", {
     title: "Register",
     nav,
+    errors: null,
   });
 };
 
@@ -47,7 +49,8 @@ accountController.registerAccount = async function (req, res) {
     res.status(201).render("account/login", {
       title: "Login",
       nav,
-    })
+      errors: null,
+    });
   } else {
     req.flash("notice", "Sorry, the registration failed.")
     res.status(501).render("account/register", {
@@ -57,4 +60,4 @@ accountController.registerAccount = async function (req, res) {
   }
 }
 
-module.exports = accountController;
+module.exports = accountController
