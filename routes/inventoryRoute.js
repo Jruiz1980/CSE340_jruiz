@@ -14,6 +14,18 @@ router.get(
   utilities.handleErrors(invController.buildDetailViewById)
 );
 
+// Route to build the inventory management view
+router.get(
+  "/manage",
+ utilities.handleErrors(invController.renderManagementView)
+);
+
+// Route to build the add new classification view
+router.get(
+  "/add-classification",
+  utilities.handleErrors(invController.renderAddClassificationView)
+);
+
 // Process the add-classification attempt
 router.post(
   "/add-classification",
@@ -40,11 +52,11 @@ router.post(
 // New route for rendering the 'add-vehicle' view with the classification dropdown
 router.get('/add-vehicle', async (req, res) => {
   const selectedClassificationId = req.query.selectedClassificationId;
-  const dropdown = await utilities.getClassificationDropdown(req, res, null, selectedClassificationId);
+  const dropdown = await Util.getClassificationDropdown(req, res, null, selectedClassificationId);
   res.render('add-vehicle', { dropdown });
 });
 
 // Add a catch-all route for 404 errors
 router.use(utilities.handleErrors);
 
-module.exports = router;
+(module.exports = router), utilities;
