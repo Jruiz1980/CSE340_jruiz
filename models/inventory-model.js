@@ -28,6 +28,23 @@ async function getInventoryByClassificationId(classification_id) {
     }
 }
 
+/* ***************************
+ *  Query to fetch the vehicle details using the inventoryId
+ * ************************** */
+async function getVehicleDetail(inventoryId) {
+  try {
+    const data = await pool.query(
+      "SELECT * FROM public.inventory WHERE inv_id = $1",
+      [inventoryId]
+    );
+    return data.rows[0];
+  } catch (error) {
+    console.error("getVehicleDetail error " + error);
+    return null;
+  }
+}
+
+
 
 /* ********************
  * Get vehicle detail data by inv_id
@@ -46,6 +63,26 @@ async function getInventoryItemById(inv_id) {
     console.error("getInventoryItemById error " + error)
   }
 }
+
+
+/* **********************
+ *   Check for existing classification
+ * ********************* */
+async function checkExistingClassification(classification_name) {
+  try {
+    const sql = "SELECT * FROM classification WHERE classification_name = $1";
+    const result = await pool.query(sql, [classification_name]);
+    if (result.rowCount === 1) {
+      // User found, return the user data
+      return result.rows[0];
+    }
+    // User not found
+    return null;
+  } catch (error) {
+    return error.message;
+  }
+}
+
 
 /* ***************************
  *  Query to add new classification
@@ -100,6 +137,8 @@ async function addVehicle(
    getClassifications,
    getInventoryByClassificationId,
    getInventoryItemById,
+   getVehicleDetail,
    addClassification,
    checkExistingClassification,
+   addVehicle
  };

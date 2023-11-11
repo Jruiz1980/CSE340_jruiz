@@ -1,4 +1,4 @@
-const uitilities = require(".");
+const utilities = require(".");
 const { body, validationResult } = require("express-validator");
 const classificationModel = require("../models/inventory-model");
 const inv_validate = {};
@@ -158,10 +158,11 @@ inv_validate.checkVehicleData = async (req, res, next) => {
     inv_miles,
     inv_color,
   } = req.body;
+  
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav();
-    let classificationDropdown = await Util.getClassificationDropdown();
+    let classificationDropdown = await utilities.getClassificationDropdown();
     res.render("inventory/add-vehicle", {
       errors,
       title: "Add New Vehicle",

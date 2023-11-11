@@ -40,7 +40,7 @@ router.post(
 // New route for rendering the 'add-vehicle' view with the classification dropdown
 router.get('/add-vehicle', async (req, res) => {
   const selectedClassificationId = req.query.selectedClassificationId;
-  const dropdown = await Util.getClassificationDropdown(req, res, null, selectedClassificationId);
+  const dropdown = await utilities.getClassificationDropdown(req, res, null, selectedClassificationId);
   res.render('add-vehicle', { dropdown });
 });
 
