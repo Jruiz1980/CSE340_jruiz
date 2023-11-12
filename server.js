@@ -54,13 +54,13 @@ app.use(express.static("public"))
  * Routes
  *************************/
 
-app.use(require("./routes/static"))
+app.use(static)
 
 //Index route
 app.get("/", utilities.handleErrors(baseController.buildHome))
 
 // Inventory routes
-app.use("/inv", require("./routes/inventoryRoute"))
+app.use("/inv", inventoryRoute)
 
 // Account Routes
 app.use("/account", require("./routes/accountRoute"))

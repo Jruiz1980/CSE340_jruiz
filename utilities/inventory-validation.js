@@ -162,7 +162,7 @@ inv_validate.checkVehicleData = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav();
-    let classificationDropdown = await utilities.getClassificationDropdown();
+    let classificationDropdown = await utilities.buildClassificationList();
     res.render("inventory/add-vehicle", {
       errors,
       title: "Add New Vehicle",

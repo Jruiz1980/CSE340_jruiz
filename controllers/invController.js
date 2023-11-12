@@ -1,5 +1,5 @@
 const invModel = require("../models/inventory-model");
-const utilities = require("../utilities/");
+const utilities = require("../utilities");
 
 const invCont = {};
 
@@ -46,7 +46,7 @@ invCont.renderManagementView = async function (req, res, next) {
   try {
     let nav = await utilities.getNav();
 
-    res.render("./inventory/management", {
+    res.render("./inventory/manage", {
       title: "Inventory Management",
       nav,
     });
@@ -92,7 +92,7 @@ invCont.addClassification = async function (req, res) {
       req.flash("notice", `${classification_name} has been added.`);
       // Clear and rebuild the navigation before rendering the management view
       const nav = await utilities.getNav();
-      res.status(201).render("inventory/management", {
+      res.status(201).render("inventory/manage", {
         title: "Inventory Management",
         nav,
       });
@@ -109,6 +109,27 @@ invCont.addClassification = async function (req, res) {
     res.status(500).send("Internal Server Error");
   }
 };
+/* ***************************
+ *  teacher suggestion
+ * ************************** */
+invCont.buildClassificationList = async function (classification_id = null) {
+  let data = await invModel.getClassifications()
+  let classificationList =
+  '<select name="classification_id" id="classificationList">'
+  classificationList += "<option>Choose a Classification</option>"
+  data.rows.forEach((row) => {
+    classificationList += '<option value="' + row.classification_id + '"'
+    if (
+      classification_id != null &&
+      row.classification_id == classification_id
+    ) {
+      classificationList += "selected "
+    }
+    classificationList += ">" + row.classification_name + "</option>"
+  })
+  classificationList += "</select>"
+  return classificationList
+};
 
 /* ***************************
  *  Build Add-Vehicle View
@@ -116,11 +137,30 @@ invCont.addClassification = async function (req, res) {
 invCont.renderAddVehicleView = async function (req, res, next) {
   try {
     let nav = await utilities.getNav();
-    let classificationDropdown = await Util.getClassificationDropdown();
+    //let classificationDropdown = await utilities.getClassificationDropdown();
+    buildClassificationList = async function (classification_id = null) {
+  let data = await invModel.getClassifications()
+  let classificationList =
+  '<select name="classification_id" id="classificationList">'
+  classificationList += "<option>Choose a Classification</option>"
+  data.rows.forEach((row) => {
+    classificationList += '<option value="' + row.classification_id + '"'
+    if (
+      classification_id != null &&
+      row.classification_id == classification_id
+    ) {
+      classificationList += "selected "
+    }
+    classificationList += ">" + row.classification_name + "</option>"
+  })
+  classificationList += "</select>"
+  return classificationList
+};
     res.render("./inventory/add-vehicle", {
       title: "Add New Vehicle",
       nav,
-      classificationDropdown,
+      //classificationDropdown,
+      buildClassificationList
     });
   } catch (error) {
     console.error(
@@ -169,7 +209,7 @@ invCont.addVehicle = async function (req, res) {
       );
       // Clear and rebuild the navigation before rendering the management view
       let nav = await utilities.getNav();
-        res.status(201).render("./inventory/management", {
+        res.status(201).render("./inventory/manage", {
         title: "Inventory Management",
         nav,
       });
