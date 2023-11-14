@@ -109,27 +109,7 @@ invCont.addClassification = async function (req, res) {
     res.status(500).send("Internal Server Error");
   }
 };
-/* ***************************
- *  teacher suggestion
- * ************************** 
-invCont.buildClassificationList = async function (classification_id = null) {
-  let data = await invModel.getClassifications()
-  let classificationList =
-  '<select name="classification_id" id="classificationList">'
-  classificationList += "<option>Choose a Classification</option>"
-  data.rows.forEach((row) => {
-    classificationList += '<option value="' + row.classification_id + '"'
-    if (
-      classification_id != null &&
-      row.classification_id == classification_id
-    ) {
-      classificationList += "selected "
-    }
-    classificationList += ">" + row.classification_name + "</option>"
-  })
-  classificationList += "</select>"
-  return classificationList
-};*/
+
 
 /* ***************************
  *  Build Add-Vehicle View
@@ -137,7 +117,7 @@ invCont.buildClassificationList = async function (classification_id = null) {
 invCont.renderAddVehicleView = async function (req, res, next) {
   try {
     let nav = await utilities.getNav();
-    let classificationDropdown = await utilities.getClassificationDropdown();
+    let classificationDropdown = await utilities.ggetDropdownList();
    
     res.render("./inventory/add-vehicle", {
       title: "Add New Vehicle",
@@ -197,7 +177,7 @@ invCont.addVehicle = async function (req, res) {
       });
     } else {
       req.flash("notice", "Sorry, adding the vehicle failed.");
-      let classificationDropdown = await utilities.getClassificationDropdown();
+      let classificationDropdown = await utilities.getDropdownList();
       // Render the add-vehicle view with an error message
       res.status(501).render("./inventory/add-vehicle", {
         title: "Add New Vehicle",

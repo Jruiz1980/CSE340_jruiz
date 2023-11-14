@@ -27,7 +27,7 @@ utilities.getNav = async function (req, res, next) {
 /* **************************************
  * Builds the dropdown classification list
  * ************************************ */
-utilities.getClassificationDropdown = async function (classification_id = null) {
+utilities.getDropdownList = async function (classification_id = null) {
   let data = await invModel.getClassifications();
   let dropdown = '<select name="classification_id" id="dropdown">'
     dropdown += "<option>Choose a classification</option>"
