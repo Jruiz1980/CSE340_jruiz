@@ -111,7 +111,7 @@ invCont.addClassification = async function (req, res) {
 };
 /* ***************************
  *  teacher suggestion
- * ************************** */
+ * ************************** 
 invCont.buildClassificationList = async function (classification_id = null) {
   let data = await invModel.getClassifications()
   let classificationList =
@@ -129,7 +129,7 @@ invCont.buildClassificationList = async function (classification_id = null) {
   })
   classificationList += "</select>"
   return classificationList
-};
+};*/
 
 /* ***************************
  *  Build Add-Vehicle View
@@ -137,30 +137,12 @@ invCont.buildClassificationList = async function (classification_id = null) {
 invCont.renderAddVehicleView = async function (req, res, next) {
   try {
     let nav = await utilities.getNav();
-    //let classificationDropdown = await utilities.getClassificationDropdown();
-    buildClassificationList = async function (classification_id = null) {
-  let data = await invModel.getClassifications()
-  let classificationList =
-  '<select name="classification_id" id="classificationList">'
-  classificationList += "<option>Choose a Classification</option>"
-  data.rows.forEach((row) => {
-    classificationList += '<option value="' + row.classification_id + '"'
-    if (
-      classification_id != null &&
-      row.classification_id == classification_id
-    ) {
-      classificationList += "selected "
-    }
-    classificationList += ">" + row.classification_name + "</option>"
-  })
-  classificationList += "</select>"
-  return classificationList
-};
+    let classificationDropdown = await utilities.getClassificationDropdown();
+   
     res.render("./inventory/add-vehicle", {
       title: "Add New Vehicle",
       nav,
-      //classificationDropdown,
-      buildClassificationList
+      classificationDropdown,
     });
   } catch (error) {
     console.error(
