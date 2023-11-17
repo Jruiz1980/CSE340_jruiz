@@ -5,6 +5,7 @@
 /* ***********************
  * Require Statements
  *************************/
+const cookieParser = require("cookie-parser");
 const session = require("express-session")
 const pool = require("./database/")
 const express = require("express")
@@ -78,6 +79,8 @@ app.use(async (req, res, next) => {
   };
   next(errorMessage);
 });
+app.use(cookieParser());
+app.use(utilities.checkJWTToken);
 
 /* ********************************
 *  Express Error Handler

@@ -13,6 +13,12 @@ const regValidate = require("../utilities/accountValidation")
  * Deliver Login View
  *************************/
 
+// Process the management login
+router.get(
+  "/",
+  utilities.handleErrors(accountController.buildAccountManagement)
+);
+
 // Define the GET route for the "/login" path
 router.get("/login", utilities.handleErrors(accountController.buildLogin))
 
@@ -34,4 +40,6 @@ router.post(
 router.post("/login", (req, res) => {
   res.status(200).send("login process");
 });
+
+
 module.exports = router

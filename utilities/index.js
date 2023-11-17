@@ -1,4 +1,7 @@
 const invModel = require("../models/inventory-model");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+
 const utilities = {};
 
 /* ************************
@@ -19,7 +22,7 @@ utilities.getNav = async function (req, res, next) {
       row.classification_name +
       "</a>";
     list += "</li>";
-  })
+  });
   list += "</ul>";
   return list;
 };
@@ -29,22 +32,25 @@ utilities.getNav = async function (req, res, next) {
  * ************************************ */
 utilities.getDropdownList = async function (classification_id = null) {
   let data = await invModel.getClassifications();
-  let dropdown = '<select name="classification_id" id="dropdown">'
-    dropdown += "<option>Choose a classification</option>"
-    data.rows.forEach((row) => {
-      dropdown += '<option value="' + row.classification_id + '"'
-      if (classification_id != null && row.classification_id == classification_id) {
-        dropdown += " selected "
-      }
-      dropdown += ">" + row.classification_name + "</option>";
-    })
-    dropdown += "</select>"
-    return dropdown
+  let dropdown = '<select name="classification_id" id="dropdown">';
+  dropdown += "<option>Choose a classification</option>";
+  data.rows.forEach((row) => {
+    dropdown += '<option value="' + row.classification_id + '"';
+    if (
+      classification_id != null &&
+      row.classification_id == classification_id
+    ) {
+      dropdown += " selected ";
+    }
+    dropdown += ">" + row.classification_name + "</option>";
+  });
+  dropdown += "</select>";
+  return dropdown;
 };
 
 /* **************************************
-* Build the classification view HTML
-* ************************************ */
+ * Build the classification view HTML
+ * ************************************ */
 utilities.buildClassificationGrid = async function (data) {
   let grid;
   if (data?.length > 0) {
@@ -66,7 +72,7 @@ utilities.buildClassificationGrid = async function (data) {
         vehicle.inv_model +
         ' on CSE Motors" /></a>';
       grid += '<div class="namePrice">';
-     //grid += '<hr class="line" />';
+      //grid += '<hr class="line" />';
       grid += '<h2 class="vehicleInvName">';
       grid +=
         '<a href="../../inv/detail/' +
@@ -95,20 +101,17 @@ utilities.buildClassificationGrid = async function (data) {
   return grid;
 };
 
-
-
 /* ****************************************
  * Middleware For Handling Errors
- * Wrap other function in this for 
+ * Wrap other function in this for
  * General Error Handling
  **************************************** */
-utilities.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
-
-
+utilities.handleErrors = (fn) => (req, res, next) =>
+  Promise.resolve(fn(req, res, next)).catch(next);
 
 /* **************************************
-* Build the vehicle details view HTML
-* ************************************ */
+ * Build the vehicle details view HTML
+ * ************************************ */
 utilities.buildDetailView = async function (data) {
   if (data?.[0]) {
     let vehicle = data[0];
@@ -130,16 +133,14 @@ utilities.buildDetailView = async function (data) {
                 <p class="vyear vInfo"><span class='bold-maker'>Year: </span>${
                   vehicle.inv_year
                 }</p>
-                <p class="vprice vInfo"><span class='bold-maker'>Price: </span>${
-                  Intl.NumberFormat(
+                <p class="vprice vInfo"><span class='bold-maker'>Price: </span>${Intl.NumberFormat(
                   "en-US",
                   {
                     style: "currency",
                     currency: "USD",
                   }
                 ).format(vehicle.inv_price)}</p>
-                <p class="vmileage vInfo"><span class='bold-maker'>Mileage: </span>${
-                  Intl.NumberFormat(
+                <p class="vmileage vInfo"><span class='bold-maker'>Mileage: </span>${Intl.NumberFormat(
                   "en-US"
                 ).format(vehicle.inv_miles)}</p>
                 <p class="vcolor vInfo"><span class='bold-maker'>Color: </span>${
@@ -153,5 +154,29 @@ utilities.buildDetailView = async function (data) {
     return '<p class="notice">Sorry, no matching vehicles could be found.</p>';
   }
 };
+
+
+/* ****************************************
+* Middleware to check token validity
+**************************************** */
+utilities.checkJWTToken = (req, res, next) => {
+ if (req.cookies.jwt) {
+  jwt.verify(
+   req.cookies.jwt,
+   process.env.ACCESS_TOKEN_SECRET,
+   function (err, accountData) {
+    if (err) {
+     req.flash("Please log in")
+     res.clearCookie("jwt")
+     return res.redirect("/account/login")
+    }
+    res.locals.accountData = accountData
+    res.locals.loggedin = 1
+    next()
+   })
+ } else {
+  next()
+ }
+}
 
 module.exports = utilities;
