@@ -99,7 +99,7 @@ invCont.addClassification = async function (req, res) {
     } else {
       req.flash("notice", "Sorry, adding the classification failed.");
       // Render the add-classification view with an error message
-      res.status(501).render("inventory/add-classification", {
+      res.status(501).render("./inventory/add-classification", {
         title: "Add New Classification",
         nav,
       });
@@ -117,7 +117,7 @@ invCont.addClassification = async function (req, res) {
 invCont.renderAddVehicleView = async function (req, res, next) {
   try {
     let nav = await utilities.getNav();
-    let classificationDropdown = await utilities.ggetDropdownList();
+    let classificationDropdown = await utilities.getDropdownList();
    
     res.render("./inventory/add-vehicle", {
       title: "Add New Vehicle",
