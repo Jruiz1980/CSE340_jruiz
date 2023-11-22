@@ -28,79 +28,67 @@ async function getInventoryByClassificationId(classification_id) {
 }
 
 /* ***************************
- *  Query to fetch the vehicle details using the inventoryId
+ *  Get a car given a specific Id
  * ************************** */
-async function getVehicleDetail(inventoryId) {
+async function getCarByInvId(inv_id) {
   try {
     const data = await pool.query(
-      "SELECT * FROM public.inventory WHERE inv_id = $1",
-      [inventoryId]
+      `SELECT * FROM public.inventory AS i 
+    WHERE i.inv_id = $1`,
+      [inv_id]
     );
-    return data.rows[0];
+    return data.rows;
   } catch (error) {
-    console.error("getVehicleDetail error " + error);
-    return null;
+    console.error("getCarByInvId error" + error);
   }
 }
 
-/* **********************
- *   Check for existing classification
- * ********************* */
-async function checkExistingClassification(classification_name) {
-  try {
-    const sql = "SELECT * FROM classification WHERE classification_name = $1";
-    const result = await pool.query(sql, [classification_name]);
-    if (result.rowCount === 1) {
-      // User found, return the user data
-      return result.rows[0];
-    }
-    // User not found
-    return null;
-  } catch (error) {
-    return error.message;
-  }
-}
-
-/* ***************************
- *  Query to add new classification
- * ************************** */
-async function addClassification(classification_name) {
+/* *****************************
+ *   Add a new classification
+ * *************************** */
+async function addClass(classification_name) {
   try {
     const sql =
-      "INSERT INTO classification (classification_name) VALUES ($1) Returning *";
+      "INSERT INTO classification (classification_name) VALUES ($1) RETURNING *";
     return await pool.query(sql, [classification_name]);
   } catch (error) {
     return error.message;
   }
 }
+module.exports = {
+  getClassifications,
+  getInventoryByClassificationId,
+  getCarByInvId,
+  addClass,
+};
 
-/* ***************************
- *  Query to add new vehicle
- * ************************** */
-async function addVehicle(
+/* *****************************
+ *   Add a new car
+ * *************************** */
+async function addInv(
   classification_id,
   inv_make,
   inv_model,
+  inv_year,
   inv_description,
   inv_image,
   inv_thumbnail,
   inv_price,
-  inv_year,
   inv_miles,
   inv_color
 ) {
   try {
     const sql =
-      "INSERT INTO inventory (classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *";
+      "INSERT INTO inventory (classification_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *";
     return await pool.query(sql, [
       classification_id,
       inv_make,
       inv_model,
+      inv_year,
       inv_description,
       inv_image,
       inv_thumbnail,
       inv_price,
-      inv_year,
       inv_miles,
       inv_color,
     ]);
@@ -108,12 +96,10 @@ async function addVehicle(
     return error.message;
   }
 }
-
 module.exports = {
   getClassifications,
   getInventoryByClassificationId,
-  getVehicleDetail,
-  addClassification,
-  checkExistingClassification,
-  addVehicle,
+  getCarByInvId,
+  addClass,
+  addInv,
 };

@@ -1,4 +1,6 @@
-const invModel = require("../models/inventory-model.js");
+const invModel = require("../models/inventory-model");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 const Util = {};
 
 /* ************************
@@ -25,24 +27,6 @@ Util.getNav = async function (req, res, next) {
 };
 
 /* **************************************
- * Builds the dropdown classification list
- * ************************************ */
-Util.getClassificationDropdown = async function (req, res, next) {
-  let data = await invModel.getClassifications();
-  let dropdown = '<select name="classification_id">';
-  data.rows.forEach((row) => {
-    dropdown +=
-      '<option value="' +
-      row.classification_id +
-      '">' +
-      row.classification_name +
-      "</option>";
-  });
-  dropdown += "</select>";
-  return dropdown;
-};
-
-/* **************************************
  * Build the classification view HTML
  * ************************************ */
 Util.buildClassificationGrid = async function (data) {
@@ -58,7 +42,7 @@ Util.buildClassificationGrid = async function (data) {
         vehicle.inv_make +
         " " +
         vehicle.inv_model +
-        ' details"><img src="' +
+        'details"><img src="' +
         vehicle.inv_thumbnail +
         '" alt="Image of ' +
         vehicle.inv_make +
@@ -96,22 +80,70 @@ Util.buildClassificationGrid = async function (data) {
 };
 
 /* **************************************
- * Build the vehicle details view HTML
+ * Build the car detail view HTML
  * ************************************ */
-Util.buildVehicleDetail = function (vehicle) {
-  const vehicleDetailHTML = `
-  <div class="vehicle-detail">
-    <h1>${vehicle.make} ${vehicle.model}</h1>
-    <img src="${vehicle.fullSizeImage}" alt="${vehicle.make} ${
-    vehicle.model
-  }" />
-    <p>Year: ${vehicle.year}</p>
-    <p>Price: $${new Intl.NumberFormat("en-US").format(vehicle.price)}</p>
-    <p>Mileage: ${new Intl.NumberFormat("en-US").format(vehicle.mileage)}</p>
-    <!-- Add more details here -->
-  </div>
-  `;
-  return vehicleDetailHTML;
+Util.buildCarView = async function (data) {
+  // console.log("DATA:");
+  // console.log(data);
+  let carView;
+  carView = "<div id=car-details>";
+  carView +=
+    '<img id="car-img" src="' +
+    data[0].inv_image +
+    '" alt="Car Detail Photo"/>';
+  carView += '<div id="car-info">';
+  carView += '<h2 id="car-heading">';
+  carView +=
+    data[0].inv_year + " " + data[0].inv_make + " " + data[0].inv_model;
+  carView += "</h2>";
+  carView += '<ul id="info-list">';
+  carView +=
+    "<li><b>Price: </b>" +
+    "$" +
+    new Intl.NumberFormat("en-US").format(data[0].inv_price) +
+    "</li>";
+  carView += "<li><b>Description: </b>" + data[0].inv_description + "</li>";
+  carView +=
+    "<li><b>Miles: </b>" +
+    new Intl.NumberFormat("en-US").format(data[0].inv_miles) +
+    "</li>";
+  carView += "<li><b>Color: </b>" + data[0].inv_color + "</li>";
+  carView += "</ul>";
+  carView += "</div>";
+  carView += "</div>";
+  return carView;
+};
+
+/* **************************************
+ * Build the management view HTML
+ * ************************************ */
+Util.buildManagementView = async function () {
+  let manageView;
+  manageView = `
+  <div id="manageDiv">
+    <a href="/inv/addclass" class="manageLinks">Add Classification</a>
+    <a href="/inv/addinv" class="manageLinks">Add Inventory</a>
+  </div>`;
+  return manageView;
+};
+
+Util.buildClassificationList = async function (classification_id = null) {
+  let data = await invModel.getClassifications();
+  let classification_list =
+    '<select name="classification_id" id="classification_id">';
+  classification_list += "<option>Chose a Classification</option>";
+  data.rows.forEach((row) => {
+    classification_list += '<option value="' + row.classification_id + '"';
+    if (
+      classification_id != null &&
+      row.classification_id == classification_id
+    ) {
+      classification_list += " selected ";
+    }
+    classification_list += ">" + row.classification_name + "</option>";
+  });
+  classification_list += "</select>";
+  return classification_list;
 };
 
 /* ****************************************
@@ -121,5 +153,29 @@ Util.buildVehicleDetail = function (vehicle) {
  **************************************** */
 Util.handleErrors = (fn) => (req, res, next) =>
   Promise.resolve(fn(req, res, next)).catch(next);
+
+/* ****************************************
+ * Middleware to check token validity
+ **************************************** */
+Util.checkJWTToken = (req, res, next) => {
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err, accountData) {
+        if (err) {
+          req.flash("Please log in");
+          res.clearCookie("jwt");
+          return res.redirect("/account/login");
+        }
+        res.locals.accountData = accountData;
+        res.locals.loggedin = 1;
+        next();
+      }
+    );
+  } else {
+    next();
+  }
+};
 
 module.exports = Util;

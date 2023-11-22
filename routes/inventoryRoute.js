@@ -1,56 +1,51 @@
-const Util = require("../utilities");
+// Needed Resources
 const express = require("express");
 const router = new express.Router();
 const invController = require("../controllers/invController");
-const invValidate = require("../utilities/inventory-validation");
+const utilities = require("../utilities/");
+const invValidation = require("../utilities/inv-validation");
 
+/*************************************
+GET ROUTES 
+*************************************/
 // Route to build inventory by classification view
 router.get(
   "/type/:classificationId",
-  Util.handleErrors(invController.buildByClassificationId)
+  utilities.handleErrors(invController.buildByClassificationId)
 );
-
-// Route to retrieve a specific vehicle's information
+// Route to build a car view with the Id
 router.get(
-  "/detail/:inventoryId",
-  Util.handleErrors(invController.showVehicleDetail)
+  "/detail/:inv_id",
+  utilities.handleErrors(invController.buildByInvId)
 );
-
-// Route to build the inventory management view
+//Route to trigger the 500 error
 router.get(
-  "/management",
-  Util.handleErrors(invController.renderManagementView)
+  "/trigger-error",
+  utilities.handleErrors(invController.triggerError)
 );
+// Inventory Management view
+router.get("/", utilities.handleErrors(invController.buildManagementView));
+// Add  class view
+router.get("/addclass", utilities.handleErrors(invController.buildAddClass));
+// Add Inventory view
+router.get("/addinv", utilities.handleErrors(invController.buildAddInv));
 
-// Route to build the add new classification view
-router.get(
-  "/add-classification",
-  Util.handleErrors(invController.renderAddClassificationView)
-);
-
-// Process the add-classification attempt
+/*************************************
+POST ROUTES 
+*************************************/
+// Add a new classification
 router.post(
-  "/add-classification",
-  invValidate.addClassificationRules(),
-  invValidate.checkClassData,
-  Util.handleErrors(invController.addClassification)
+  "/addclass",
+  invValidation.addClassRules(),
+  invValidation.checkClassData,
+  utilities.handleErrors(invController.addClass)
 );
-
-// Route to build the add new vehicle view
-router.get(
-  "/add-vehicle",
-  Util.handleErrors(invController.renderAddVehicleView)
-);
-
-// Process adding new vehicle
+// Add a new car
 router.post(
-  "/add-vehicle",
-  invValidate.addVehicleRules(),
-  invValidate.checkVehicleData,
-  Util.handleErrors(invController.addVehicle)
+  "/addinv",
+  invValidation.addInvRules(),
+  invValidation.checkInvData,
+  utilities.handleErrors(invController.addInv)
 );
 
-// Add a catch-all route for 404 errors
-router.use(Util.handleErrors);
-
-(module.exports = router), Util;
+module.exports = router;

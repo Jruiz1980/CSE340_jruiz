@@ -1,30 +1,34 @@
-const Util = require("../utilities");
 const express = require("express");
 const router = new express.Router();
-const accountController = require("../controllers/accountController");
+const utilities = require("../utilities/index");
+const accountsController = require("../controllers/accountController");
 const regValidate = require("../utilities/account-validation");
-const logValidate = require("../utilities/account-validation");
 
-// Define the GET route for the "/login" path
-router.get("/login", Util.handleErrors(accountController.buildLogin));
+// Get requests
+router.get(
+  "/",
+  utilities.handleErrors(accountsController.buildAccountManagement)
+);
+router.get("/login", utilities.handleErrors(accountsController.buildLogin));
+router.get(
+  "/register",
+  utilities.handleErrors(accountsController.buildRegister)
+);
 
-// Define the GET route for the "/register" path
-router.get("/register", Util.handleErrors(accountController.buildRegister));
+// ADD NEW ACCOUNT
+router.post(
+  "/register",
+  regValidate.registrationRules(),
+  regValidate.checkRegData,
+  utilities.handleErrors(accountsController.registerAccount)
+);
 
 // Process the login attempt
 router.post(
   "/login",
-  logValidate.loginRules(),
-  logValidate.checkLogData,
-  Util.handleErrors(accountController.loginAccount)
-);
-
-// Process the POST request from the registration form
-router.post(
-  "/register",
-  regValidate.registationRules(),
-  regValidate.checkRegData,
-  Util.handleErrors(accountController.registerAccount)
+  regValidate.loginRules(),
+  regValidate.checkLoginData,
+  utilities.handleErrors(accountsController.accountLogin)
 );
 
 module.exports = router;
