@@ -5,17 +5,18 @@
 /* ***********************
  * Require Statements
  *************************/
-const express = require("express")
-const env = require("dotenv").config()
-const app = express()
-const static = require("./routes/static")
-const inventoryRoute = require("./routes/inventoryRoute")
-const expressLayouts = require("express-ejs-layouts")
-const baseController = require("./controllers/baseController")
-const utilities = require("./utilities/index")
+const express = require("express");
+const env = require("dotenv").config();
+const app = express();
+const static = require("./routes/static");
+const inventoryRoute = require("./routes/inventoryRoute");
+const expressLayouts = require("express-ejs-layouts");
+const baseController = require("./controllers/baseController");
+const accountRoute = require("./routes/accountRoute");
+const utilities = require("./utilities/index");
 const session = require("express-session");
 const pool = require("./database/");
-const bodyParser = require("body-parser")
+const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
 
@@ -64,8 +65,10 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 app.use("/inv", inventoryRoute)
 
 // Account Routes
-app.use("/account", require("./routes/accountRoute"))
-
+app.use("/account", accountRoute)
+app.use(async (req, res, next) => {
+  next({ status: 404, message: "Sorry, we appear to have lost that page." });
+});
 
 /********************* 
  * Middleware

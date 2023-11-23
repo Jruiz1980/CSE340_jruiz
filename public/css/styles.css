@@ -242,7 +242,7 @@
     align-items: center;
   }
 
-  .submit {
+  .submitted {
     width:64px;
     height:30px;
     font-size:1rem;
@@ -260,7 +260,7 @@
   .sign-up {
     color:wheat;
   }
-  .noAccount, .submit {
+  .noAccount, .submitted {
     margin: 5%;
   }
 /***************Register*******************/
@@ -360,7 +360,7 @@
   .login-wrapper{
     width:45%;
   }
-  /*.submit {
+  /*.submitted {
     top:90%;
   }*/
   /*.noAccount {
@@ -549,7 +549,7 @@
   .login-wrapper{
     width:40%;
   }
-  /*.submit {
+  /*.submitted {
     top:50%;
   }*/
   /*.noAccount {
