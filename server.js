@@ -6,18 +6,19 @@
  * Require Statements
  *************************/
 const express = require("express");
-const env = require("dotenv").config();
-const app = express();
-const static = require("./routes/static");
-const inventoryRoute = require("./routes/inventoryRoute");
 const expressLayouts = require("express-ejs-layouts");
+const env = require("dotenv").config();
+const static = require("./routes/static");
 const baseController = require("./controllers/baseController");
+const inventoryRoute = require("./routes/inventoryRoute");
 const accountRoute = require("./routes/accountRoute");
 const utilities = require("./utilities/index");
 const session = require("express-session");
 const pool = require("./database/");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+
+const app = express();
 
 
 /* ***********************
@@ -50,7 +51,8 @@ app.use(cookieParser());
 app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout") // not at views root
-app.use(express.static("public"))
+//app.use(express.static("public"))
+app.use(utilities.checkJWTToken);
 
 /* ***********************
  * Routes
@@ -65,10 +67,10 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 app.use("/inv", inventoryRoute)
 
 // Account Routes
-app.use("/account", accountRoute)
-app.use(async (req, res, next) => {
-  next({ status: 404, message: "Sorry, we appear to have lost that page." });
-});
+app.use("/account", accountRoute);
+//app.use(async (req, res, next) => {
+  //next({ status: 404, message: "Sorry, we appear to have lost that page." });
+//});
 
 /********************* 
  * Middleware
@@ -82,7 +84,6 @@ app.use(async (req, res, next) => {
   };
   next(errorMessage);
 });
-app.use(utilities.checkJWTToken);
 
 /* ********************************
 *  Express Error Handler

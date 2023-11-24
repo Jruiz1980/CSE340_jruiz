@@ -168,7 +168,7 @@ utilities.checkJWTToken = (req, res, next) => {
     if (err) {
      req.flash("Please log in")
      res.clearCookie("jwt")
-     return res.redirect("/account/login")
+     return res.redirect("account/login")
     }
     res.locals.accountData = accountData
     res.locals.loggedin = 1
@@ -188,7 +188,7 @@ utilities.checkLogin = (req, res, next) => {
     next();
   } else {
     req.flash("notice", "Please log in.");
-    return res.redirect("/account/login");
+    return res.redirect("account/login");
   }
 };
 

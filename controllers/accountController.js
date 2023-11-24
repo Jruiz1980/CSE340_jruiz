@@ -86,15 +86,31 @@ accountController.registerAccount = async function (req, res, next) {
 
 
 /* ****************************************
+*  Deliver account management view 
+* *************************************** */
+accountController.buildAccountManagement =
+  async function (req, res, next) {
+      let nav = await utilities.getNav();
+      console.error("buildAccountManagement");
+      res.render("/account/manage", {
+        title: "Account Management",
+        nav,
+        errors: null,
+      });
+      next(); 
+    }
+
+
+/* ****************************************
  *  Process login request
  * ************************************ */
-accountController.accountLogin = async function (req, res, next) {
+accountController.accountLogin = async function (req, res) {
  let nav = await utilities.getNav();
  const { account_email, account_password } = req.body;
  const accountData = await accountModel.getAccountByEmail(account_email);
  if (!accountData) {
   req.flash("notice", "Please check your credentials and try again.")
-  res.status(400).render("/account/login", {
+  res.status(400).render("account/login", {
    title: "Login",
    nav,
    errors: null,
@@ -107,37 +123,11 @@ accountController.accountLogin = async function (req, res, next) {
   delete accountData.account_password
   const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
   res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
-  return res.redirect("/account")
+  return res.redirect("/account/")
   }
  } catch (error) {
   return new Error('Access Forbidden')
  }
- next()
 };
-
-
-/* ****************************************
-*  Deliver account management view 
-* *************************************** */
-accountController.buildAccountManagement =
-  async function (req, res, next) {
-    try {
-      let nav = await utilities.getNav();
-      console.log("buildAccountManagement");
-      res.render("/account/manage", {
-        title: "Account Management",
-        nav,
-        errors: null,
-      });
-    } catch (error) {
-      console.error("buildAccountManagement error: " + error);
-      res.render("errors/error", {
-        title: "Server Error",
-        message: "There was a server error.",
-        nav: await utilities.getNav(),
-      });
-    }
-  
-  };
 
 module.exports = accountController;
