@@ -1,3 +1,4 @@
 {
-    "sqltools.connections": []
+    "sqltools.connections": [],
+    "editor.inlineSuggest.showToolbar": "always"
 }

@@ -1,15 +1,16 @@
-const utilities = require("../utilities");
-const accountModel = require("../models/account-model");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
+const utilities = require("../utilities")
+const accountModel = require("../models/account-model")
+const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
+const { body } = require("express-validator")
+require("dotenv").config()
 
-const accountController = {};
+const accountController = {}
 /* *******************
  *  Deliver login view
  * ******************** */
 accountController.buildLogin = async function (req, res, next) {
-  let nav = await utilities.getNav();
+  let nav = await utilities.getNav()
   res.render("account/login", {
     title: "Login",
     nav,
@@ -33,7 +34,7 @@ accountController.buildRegister = async function (req, res, next) {
  *  Process Registration
  * *************************************** */
 accountController.registerAccount = async function (req, res, next) {
-  let nav = await utilities.getNav();
+  let nav = await utilities.getNav()
   const {
     account_firstname,
     account_lastname,
@@ -42,10 +43,10 @@ accountController.registerAccount = async function (req, res, next) {
   } = req.body;
 
   // Hash the password before storing
-  let hashedPassword;
+  let hashedPassword
   try {
     // regular password and cost (salt is generated automatically)
-    hashedPassword = bcrypt.hashSync(account_password, 10);
+    hashedPassword = bcrypt.hashSync(account_password, 10)
   } catch (error) {
     req.flash(
       "notice",
@@ -56,7 +57,7 @@ accountController.registerAccount = async function (req, res, next) {
       nav,
       errors: null,
     },
-    next());
+    next())
   };
 
   const regResult = await accountModel.registerAccount(
@@ -76,7 +77,7 @@ accountController.registerAccount = async function (req, res, next) {
       nav,
     });
   } else {
-    req.flash("notice", "Sorry, the registration failed.");
+    req.flash("notice", "Sorry, the registration failed.")
     return res.status(501).render("account/register", {
       title: "Registration",
       nav,
@@ -89,15 +90,14 @@ accountController.registerAccount = async function (req, res, next) {
 *  Deliver account management view 
 * *************************************** */
 accountController.buildAccountManagement =
-  async function (req, res, next) {
-      let nav = await utilities.getNav();
-      console.error("buildAccountManagement");
-      res.render("/account/manage", {
+  async function (req, res) {
+      let nav = await utilities.getNav()
+      console.log("account/manage");
+      res.render("account/management", {
         title: "Account Management",
         nav,
         errors: null,
-      });
-      next(); 
+      })
     }
 
 
@@ -105,9 +105,10 @@ accountController.buildAccountManagement =
  *  Process login request
  * ************************************ */
 accountController.accountLogin = async function (req, res) {
- let nav = await utilities.getNav();
- const { account_email, account_password } = req.body;
- const accountData = await accountModel.getAccountByEmail(account_email);
+ let nav = await utilities.getNav()
+ const { account_email, account_password } = req.body
+ const accountData = await accountModel.getAccountByEmail(account_email)
+ console.log(req.body)
  if (!accountData) {
   req.flash("notice", "Please check your credentials and try again.")
   res.status(400).render("account/login", {
@@ -115,9 +116,9 @@ accountController.accountLogin = async function (req, res) {
    nav,
    errors: null,
    account_email,
-  });
+  })
  return
- };
+ }
  try {
   if (await bcrypt.compare(account_password, accountData.account_password)) {
   delete accountData.account_password
@@ -128,6 +129,6 @@ accountController.accountLogin = async function (req, res) {
  } catch (error) {
   return new Error('Access Forbidden')
  }
-};
-
-module.exports = accountController;
+}
+console.log(accountController.accountLogin)
+module.exports = accountController
