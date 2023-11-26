@@ -15,7 +15,7 @@ const regValidate = require("../utilities/accountValidation")
 // Process the management login
 router.get(
   "/",
-  utilities.checkLogin, utilities.handleErrors(accountController.buildAccountManagement)
+  /*utilities.checkLogin,*/ utilities.handleErrors(accountController.buildAccountManagement)
 )
 
 // Define the GET route for the "/login" path

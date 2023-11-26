@@ -11,7 +11,7 @@ const accountController = {}
  * ******************** */
 accountController.buildLogin = async function (req, res, next) {
   let nav = await utilities.getNav()
-  res.render("account/login", {
+  res.render("/account/login", {
     title: "Login",
     nav,
     errors: null,
@@ -90,15 +90,23 @@ accountController.registerAccount = async function (req, res, next) {
 *  Deliver account management view 
 * *************************************** */
 accountController.buildAccountManagement =
-  async function (req, res) {
-      let nav = await utilities.getNav()
-      console.log("account/manage");
-      res.render("account/management", {
-        title: "Account Management",
-        nav,
-        errors: null,
+  async function (req, res, next) {
+      try {
+        let nav = await utilities.getNav()
+        console.log("buildAccountManagement");
+        res.render("./account/manage", {
+          title: "Account Management",
+          nav,
+          errors: null,
       })
+    } catch (error) {
+      console.error (
+        "An error ocurred in accountController.buildAccountManagement",
+        error
+      )
+      next(error)
     }
+  }
 
 
 /* ****************************************
@@ -108,7 +116,7 @@ accountController.accountLogin = async function (req, res) {
  let nav = await utilities.getNav()
  const { account_email, account_password } = req.body
  const accountData = await accountModel.getAccountByEmail(account_email)
- console.log(req.body)
+ console.log(accountData)
  if (!accountData) {
   req.flash("notice", "Please check your credentials and try again.")
   res.status(400).render("account/login", {
@@ -122,13 +130,15 @@ accountController.accountLogin = async function (req, res) {
  try {
   if (await bcrypt.compare(account_password, accountData.account_password)) {
   delete accountData.account_password
+  
   const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
   res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
+   console.log(res.cookie)
   return res.redirect("/account/")
   }
  } catch (error) {
   return new Error('Access Forbidden')
  }
 }
-console.log(accountController.accountLogin)
+
 module.exports = accountController
