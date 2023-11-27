@@ -11,7 +11,7 @@ const accountController = {}
  * ******************** */
 accountController.buildLogin = async function (req, res, next) {
   let nav = await utilities.getNav()
-  res.render("/account/login", {
+  res.render("./account/login", {
     title: "Login",
     nav,
     errors: null,
@@ -86,27 +86,6 @@ accountController.registerAccount = async function (req, res, next) {
 };
 
 
-/* ****************************************
-*  Deliver account management view 
-* *************************************** */
-accountController.buildAccountManagement =
-  async function (req, res, next) {
-      try {
-        let nav = await utilities.getNav()
-        console.log("buildAccountManagement");
-        res.render("./account/manage", {
-          title: "Account Management",
-          nav,
-          errors: null,
-      })
-    } catch (error) {
-      console.error (
-        "An error ocurred in accountController.buildAccountManagement",
-        error
-      )
-      next(error)
-    }
-  }
 
 
 /* ****************************************
@@ -141,4 +120,27 @@ accountController.accountLogin = async function (req, res) {
  }
 }
 
+
+/* ****************************************
+*  Deliver account management view 
+* *************************************** */
+accountController.buildAccountManagement =
+  async function (req, res, next) {
+      try {
+        let nav = await utilities.getNav()
+        console.log("buildAccountManagement");
+        res.render("./account/manage", {
+          title: "Account Management",
+          nav,
+          errors: null,
+      })
+    } catch (error) {
+      console.error (
+        "An error ocurred in accountController.buildAccountManagement",
+        error
+      )
+      next(error)
+    }
+  }
+  
 module.exports = accountController

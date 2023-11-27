@@ -15,19 +15,17 @@ const regValidate = require("../utilities/accountValidation")
 // Process the management login
 router.get(
   "/",
-  /*utilities.checkLogin,*/ utilities.handleErrors(accountController.buildAccountManagement)
+  utilities.checkLogin, utilities.handleErrors(accountController.buildAccountManagement)
 )
 
 // Define the GET route for the "/login" path
 router.get("/login", utilities.handleErrors(accountController.buildLogin))
-
 
 // Process the login attempt
 router.get(
   "/register",
   utilities.handleErrors(accountController.buildRegister)
 )
-
 
 //Process the login attempt
 router.post(
@@ -37,7 +35,6 @@ regValidate.checkLogData,
 utilities.handleErrors(accountController.accountLogin)
 )
 
-
 // Process the register attempt
 router.post(
   "/register",
@@ -45,6 +42,5 @@ router.post(
   regValidate.checkRegData,
   utilities.handleErrors(accountController.registerAccount)
 )
-
 
 module.exports = router
