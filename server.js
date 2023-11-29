@@ -68,9 +68,9 @@ app.use("/inv", inventoryRoute)
 
 // Account Routes
 app.use("/account", accountRoute);
-//app.use(async (req, res, next) => {
-  //next({ status: 404, message: "Sorry, we appear to have lost that page." });
-//});
+app.use(async (req, res, next) => {
+  next({ status: 404, message: "Sorry, we appear to have lost that page." });
+});
 
 /********************* 
  * Middleware

@@ -124,8 +124,7 @@ accountController.accountLogin = async function (req, res) {
 /* ****************************************
 *  Deliver account management view 
 * *************************************** */
-accountController.buildAccountManagement =
-  async function (req, res, next) {
+accountController.buildAccountManagement = async function (req, res, next) {
       try {
         let nav = await utilities.getNav()
         console.log("buildAccountManagement");
