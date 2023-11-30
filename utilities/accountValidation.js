@@ -9,6 +9,7 @@ const validate = {};
 
 validate.registationRules = () => {
   return [
+    
     // firstname is required and must be string
     body("account_firstname")
       .trim()

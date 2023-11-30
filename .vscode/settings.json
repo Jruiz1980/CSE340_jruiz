@@ -1,4 +1,14 @@
 {
-  "sqltools.connections": [],
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "340",
+      "username": "jruizs",
+      "database": "CSE340"
+    }
+  ],
   "editor.inlineSuggest.showToolbar": "onHover"
 }
