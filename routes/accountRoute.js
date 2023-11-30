@@ -16,7 +16,6 @@ const regValidate = require("../utilities/accountValidation");
 // Process the management login
 router.get(
   "/",
-  utilities.checkJWTToken,
   utilities.checkLogin,
   utilities.handleErrors(accountController.buildAccountManagement),
 );

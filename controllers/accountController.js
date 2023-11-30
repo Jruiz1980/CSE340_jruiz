@@ -113,7 +113,7 @@ accountController.accountLogin = async function (req, res) {
       const accessToken = jwt.sign(
         accountData,
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: 3600 * 1000 },
+        { expiresIn: 3600 * 1000 }
       );
       res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 });
 
