@@ -1,4 +1,4 @@
 {
-    "sqltools.connections": [],
-    "editor.inlineSuggest.showToolbar": "onHover"
+  "sqltools.connections": [],
+  "editor.inlineSuggest.showToolbar": "onHover"
 }

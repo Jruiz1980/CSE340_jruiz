@@ -1,18 +1,18 @@
-const invModel = require("../models/inventory-model")
-const jwt = require("jsonwebtoken")
-require("dotenv").config()
+const invModel = require("../models/inventory-model");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
-const utilities = {}
+const utilities = {};
 
 /* ************************
  * Constructs the nav HTML unordered list
  ************************** */
 utilities.getNav = async function (req, res, next) {
-  let data = await invModel.getClassifications()
-  let list = "<ul>"
-  list += '<li><a href="/" title="Home page">Home</a></li>'
+  let data = await invModel.getClassifications();
+  let list = "<ul>";
+  list += '<li><a href="/" title="Home page">Home</a></li>';
   data.rows.forEach((row) => {
-    list += "<li>"
+    list += "<li>";
     list +=
       '<a href="/inv/type/' +
       row.classification_id +
@@ -20,43 +20,43 @@ utilities.getNav = async function (req, res, next) {
       row.classification_name +
       ' vehicles">' +
       row.classification_name +
-      "</a>"
-    list += "</li>"
+      "</a>";
+    list += "</li>";
   });
-  list += "</ul>"
-  return list
+  list += "</ul>";
+  return list;
 };
 
 /* **************************************
  * Builds the dropdown classification list
  * ************************************ */
 utilities.getDropdownList = async function (classification_id = null) {
-  let data = await invModel.getClassifications()
-  let dropdown = '<select name="classification_id" id="dropdown">'
-  dropdown += "<option>Choose a classification</option>"
+  let data = await invModel.getClassifications();
+  let dropdown = '<select name="classification_id" id="dropdown">';
+  dropdown += "<option>Choose a classification</option>";
   data.rows.forEach((row) => {
-    dropdown += '<option value="' + row.classification_id + '"'
+    dropdown += '<option value="' + row.classification_id + '"';
     if (
       classification_id != null &&
       row.classification_id == classification_id
     ) {
-      dropdown += " selected "
+      dropdown += " selected ";
     }
-    dropdown += ">" + row.classification_name + "</option>"
+    dropdown += ">" + row.classification_name + "</option>";
   });
-  dropdown += "</select>"
-  return dropdown
-}
+  dropdown += "</select>";
+  return dropdown;
+};
 
 /* **************************************
  * Build the classification view HTML
  * ************************************ */
 utilities.buildClassificationGrid = async function (data) {
-  let grid
+  let grid;
   if (data?.length > 0) {
-    grid = '<ul id="inv-display">'
+    grid = '<ul id="inv-display">';
     data.forEach((vehicle) => {
-      grid += '<li class="vehicleCard" >'
+      grid += '<li class="vehicleCard" >';
       grid +=
         '<a href="../../inv/detail/' +
         vehicle.inv_id +
@@ -70,10 +70,10 @@ utilities.buildClassificationGrid = async function (data) {
         vehicle.inv_make +
         " " +
         vehicle.inv_model +
-        ' on CSE Motors" /></a>'
-      grid += '<div class="namePrice">'
+        ' on CSE Motors" /></a>';
+      grid += '<div class="namePrice">';
       //grid += '<hr class="line" />';
-      grid += '<h2 class="vehicleInvName">'
+      grid += '<h2 class="vehicleInvName">';
       grid +=
         '<a href="../../inv/detail/' +
         vehicle.inv_id +
@@ -86,20 +86,20 @@ utilities.buildClassificationGrid = async function (data) {
         " " +
         vehicle.inv_model +
         "</a>";
-      grid += "</h2>"
+      grid += "</h2>";
       grid +=
         "<span class='price'>$" +
         new Intl.NumberFormat("en-US").format(vehicle.inv_price) +
         "</span>"; // how to format price
-      grid += "</div>"
-      grid += "</li>"
+      grid += "</div>";
+      grid += "</li>";
     });
-    grid += "</ul>"
+    grid += "</ul>";
   } else {
-    grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+    grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>';
   }
-  return grid
-}
+  return grid;
+};
 
 /* ****************************************
  * Middleware For Handling Errors
@@ -107,14 +107,14 @@ utilities.buildClassificationGrid = async function (data) {
  * General Error Handling
  **************************************** */
 utilities.handleErrors = (fn) => (req, res, next) =>
-  Promise.resolve(fn(req, res, next)).catch(next)
+  Promise.resolve(fn(req, res, next)).catch(next);
 
 /* **************************************
  * Build the vehicle details view HTML
  * ************************************ */
 utilities.buildDetailView = async function (data) {
   if (data?.[0]) {
-    let vehicle = data[0]
+    let vehicle = data[0];
     let grid = `
             <div class="vehicleContainer">
               <img class ="vehiclaDetailImage" src="${
@@ -138,46 +138,46 @@ utilities.buildDetailView = async function (data) {
                   {
                     style: "currency",
                     currency: "USD",
-                  }
+                  },
                 ).format(vehicle.inv_price)}</p>
                 <p class="vmileage vInfo"><span class='bold-maker'>Mileage: </span>${Intl.NumberFormat(
-                  "en-US"
+                  "en-US",
                 ).format(vehicle.inv_miles)}</p>
                 <p class="vcolor vInfo"><span class='bold-maker'>Color: </span>${
                   vehicle.inv_color
                 }</p>
               </div>
             </div>
-        `
-    return grid
+        `;
+    return grid;
   } else {
-    return '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+    return '<p class="notice">Sorry, no matching vehicles could be found.</p>';
   }
 };
 
-
 /* ****************************************
-* Middleware to check token validity
-**************************************** */
+ * Middleware to check token validity
+ **************************************** */
 utilities.checkJWTToken = (req, res, next) => {
- if (req.cookies.jwt) {
-  jwt.verify(
-   req.cookies.jwt,
-   process.env.ACCESS_TOKEN_SECRET,
-   function (err, accountData) {
-    if (err) {
-     req.flash("Please log in")
-     res.clearCookie("jwt")
-     return res.redirect("account/login")
-    }
-    res.locals.accountData = accountData
-    res.locals.loggedin = 1
-    next()
-   })
- } else {
-  next()
- }
-}
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err, accountData) {
+        if (err) {
+          req.flash("Please log in");
+          res.clearCookie("jwt");
+          return res.redirect("account/login");
+        }
+        res.locals.accountData = accountData;
+        res.locals.loggedin = 1;
+        next();
+      },
+    );
+  } else {
+    next();
+  }
+};
 
 /* ******************
  * Check Login View
@@ -185,11 +185,11 @@ utilities.checkJWTToken = (req, res, next) => {
 
 utilities.checkLogin = (req, res, next) => {
   if (res.locals.loggedin) {
-    next()
+    next();
   } else {
-    req.flash("notice", "Please log in.")
-    return res.redirect("/account/login")
+    req.flash("notice", "Please log in.");
+    return res.redirect("/account/login");
   }
-}
+};
 
-module.exports = utilities
+module.exports = utilities;

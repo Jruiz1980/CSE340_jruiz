@@ -16,7 +16,7 @@ inv_validate.addClassificationRules = () => {
       .custom(async (classification_name) => {
         const classificationExists =
           await classificationModel.checkExistingClassification(
-            classification_name
+            classification_name,
           );
 
         if (classificationExists) {
@@ -30,7 +30,7 @@ inv_validate.addClassificationRules = () => {
           /[!@#$%^&*(),.?":{}|<>]/.test(classification_name)
         ) {
           throw new Error(
-            "Classification name cannot contain spaces or special characters."
+            "Classification name cannot contain spaces or special characters.",
           );
         }
       }),
@@ -67,7 +67,7 @@ inv_validate.addVehicleRules = () => {
       .trim()
       .isLength({ min: 3 })
       .withMessage(
-        "Please provide a vehicle make with a minimum of 3 characters."
+        "Please provide a vehicle make with a minimum of 3 characters.",
       ),
 
     // Model is required and must contain 3 characters minimum
@@ -75,7 +75,7 @@ inv_validate.addVehicleRules = () => {
       .trim()
       .isLength({ min: 3 })
       .withMessage(
-        "Please provide a vehicle model with a minimum of 3 characters."
+        "Please provide a vehicle model with a minimum of 3 characters.",
       ),
 
     // Description is required
@@ -103,13 +103,13 @@ inv_validate.addVehicleRules = () => {
         // Check if the value is numeric with an optional decimal
         if (!/^\d+(\.\d{1,2})?$/.test(value)) {
           throw new Error(
-            "Please provide a valid price with up to two decimal places."
+            "Please provide a valid price with up to two decimal places.",
           );
         }
         return true;
       })
       .withMessage(
-        "Please provide a valid price with up to two decimal places."
+        "Please provide a valid price with up to two decimal places.",
       ),
 
     // Year is required and must be 4 digits
@@ -158,7 +158,7 @@ inv_validate.checkVehicleData = async (req, res, next) => {
     inv_miles,
     inv_color,
   } = req.body;
-  
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav();

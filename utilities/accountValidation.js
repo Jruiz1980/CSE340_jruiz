@@ -1,7 +1,7 @@
 const utilities = require(".");
 const accountModel = require("../models/account-model");
 const { body, validationResult } = require("express-validator");
-const validate = {}
+const validate = {};
 /*  **********************************
  *  Registration Data Validation Rules
  * ********************************* */
@@ -26,11 +26,10 @@ validate.registationRules = () => {
       .normalizeEmail() // refer to validator.js docs
       .withMessage("A valid email is required.")
       .custom(async (account_email) => {
-        const emailExists = await accountModel.checkExistingEmail(
-          account_email
-        );
+        const emailExists =
+          await accountModel.checkExistingEmail(account_email);
         if (emailExists) {
-          throw new Error("Email exists. Please log in or use different email")
+          throw new Error("Email exists. Please log in or use different email");
         }
       }),
     // password is required and must be strong password
@@ -47,14 +46,13 @@ validate.registationRules = () => {
   ];
 };
 
-
 /* ****************************************
  * Middleware For Handling Errors
- * Wrap other function in this for 
+ * Wrap other function in this for
  * General Error Handling
  **************************************** */
 validate.handleErrors = (fn) => (req, res, next) =>
-  Promise.resolve(fn(req, res, next)).catch(next)
+  Promise.resolve(fn(req, res, next)).catch(next);
 
 /* ******************************
  * Check data and return errors or continue to registration
@@ -77,7 +75,6 @@ validate.checkRegData = async (req, res, next) => {
   next();
 };
 
-
 /* *************************************************
  * Check data and return errors or continue to login
  * ************************************************* */
@@ -92,12 +89,11 @@ validate.checkLogData = async (req, res, next) => {
       title: "Login",
       nav,
       account_email,
-    })
-return
- }  
-next()
-}
-
+    });
+    return;
+  }
+  next();
+};
 
 /* **********************************
  * Login Data Validation Rules
@@ -105,12 +101,13 @@ next()
 validate.loginRules = () => {
   return [
     body("account_email")
-     .trim()
-    .isEmail()
+      .trim()
+      .isEmail()
       .normalizeEmail()
       .withMessage("A valid email is required.")
       .custom(async (account_email) => {
-        const emailExists = await accountModel.checkExistingEmail(account_email);
+        const emailExists =
+          await accountModel.checkExistingEmail(account_email);
         if (!emailExists) {
           throw new Error("Email does not exist.");
         }
@@ -128,5 +125,4 @@ validate.loginRules = () => {
   ];
 };
 
-
-module.exports = validate
+module.exports = validate;
