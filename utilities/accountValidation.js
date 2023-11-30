@@ -2,9 +2,11 @@ const utilities = require(".");
 const accountModel = require("../models/account-model");
 const { body, validationResult } = require("express-validator");
 const validate = {};
+
 /*  **********************************
  *  Registration Data Validation Rules
  * ********************************* */
+
 validate.registationRules = () => {
   return [
     // firstname is required and must be string
