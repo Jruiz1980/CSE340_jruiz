@@ -5,6 +5,7 @@ const invController = require("../controllers/invController");
 const invValidate = require("../utilities/inventory-validation");
 const utilities = require("../utilities");
 
+
 // Route to build inventory by classification view
 router.get(
   "/type/:classificationId",
@@ -47,6 +48,9 @@ router.post(
   invValidate.checkVehicleData,
   utilities.handleErrors(invController.addVehicle),
 );
+
+// Get the view to manage vehicles
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 
 // New route for rendering the 'add-vehicle' view with the classification dropdown
 router.get("/add-vehicle", async (req, res) => {
