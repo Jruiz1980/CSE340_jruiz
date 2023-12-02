@@ -17,14 +17,17 @@ invCont.buildByClassificationId = async function (req, res, next) {
     nav,
     grid,
   });
-};
+}; // flag because detail build is called twice
 
 /* ***************************
  *  Build vehicle detail view
  * ************************** 
-let isDetailViewProcessed = false; */ // flag because detail build is called twice
-
-invCont.buildDetailViewById = async function (req, res, next) {
+let isDetailViewProcessed = false; */ 
+invCont.buildDetailViewById = async function (
+  req,
+  res,
+  next
+) {
   const inv_id = req.params.inv_id;
   const data = await invModel.getInventoryItemById(inv_id);
   const grid = await utilities.buildDetailView(data);
@@ -43,16 +46,16 @@ invCont.buildDetailViewById = async function (req, res, next) {
 invCont.renderManagementView = async function (req, res, next) {
   try {
     let nav = await utilities.getNav();
-    const classificationSelect = await utilities.buildClassificationList()
+    const classificationSelect = await utilities.buildClassificationList();
     res.render("./inventory/manage", {
       title: "Inventory Management",
       nav,
-      classificationSelect
+      classificationSelect,
     });
   } catch (error) {
     console.error(
       "An error occurred in inventoryController.renderManagementView:",
-      error,
+      error
     );
     next(error);
   }
@@ -72,7 +75,7 @@ invCont.renderAddClassificationView = async function (req, res, next) {
   } catch (error) {
     console.error(
       "An error occurred in inventoryController.renderAddClassificationView:",
-      error,
+      error
     );
     next(error);
   }
@@ -116,17 +119,17 @@ invCont.renderAddVehicleView = async function (req, res, next) {
   try {
     let nav = await utilities.getNav();
     let classificationDropdown = await utilities.getDropdownList();
-    const classificationSelect = await utilities.buildClassificationList()
+    const classificationSelect = await utilities.buildClassificationList();
     res.render("./inventory/add-vehicle", {
       title: "Add New Vehicle",
       nav,
       classificationDropdown,
-      classificationSelect      
+      classificationSelect,
     });
   } catch (error) {
     console.error(
       "An error occurred in inventoryController.renderAddVehicleView:",
-      error,
+      error
     );
     next(error);
   }
@@ -160,21 +163,21 @@ invCont.addVehicle = async function (req, res) {
       inv_price,
       inv_year,
       inv_miles,
-      inv_color,
+      inv_color
     );
 
     if (addNewVehicle) {
       req.flash(
         "notice",
-        `The ${inv_make} ${inv_model} has been added to inventory.`,
+        `The ${inv_make} ${inv_model} has been added to inventory.`
       );
       // Clear and rebuild the navigation before rendering the management view
       let nav = await utilities.getNav();
-      const classificationSelect = await utilities.buildClassificationList()
+      const classificationSelect = await utilities.buildClassificationList();
       res.status(201).render("./inventory/manage", {
         title: "Inventory Management",
         nav,
-        classificationSelect        
+        classificationSelect,
       });
     } else {
       req.flash("notice", "Sorry, adding the vehicle failed.");
@@ -192,12 +195,27 @@ invCont.addVehicle = async function (req, res) {
   }
 };
 
+/* ***************************
+ *  Return Inventory by Classification As JSON
+ * ************************** */
+invCont.getInventoryJSON = async (req, res, next) => {
+  const classification_id = parseInt(req.params.classification_id);
+  const invData = await invModel.getInventoryByClassificationId(
+    classification_id
+  );
+  if (invData[0].inv_id) {
+    return res.json(invData);
+  } else {
+    next(new Error("No data returned"));
+  }
+};
 
 /* ***************************
- *  Build edit inventory view
- * ************************** */
-invCont.editInventory = async function (req, res, next) {
+ *  Build edit vehicle view
+ * ************************** 
+invCont.editVehicleView = async function (req, res) {
   const inv_id = parseInt(req.params.inv_id)
+  
   let nav = await utilities.getNav()
   const itemData = await invModel.getInventoryById(inv_id)
   const classificationSelect = await utilities.buildClassificationList(itemData.classification_id)
@@ -219,20 +237,36 @@ invCont.editInventory = async function (req, res, next) {
     inv_color: itemData.inv_color,
     classification_id: itemData.classification_id
   })
-}
+}*/
 
 /* ***************************
- *  Return Inventory by Classification As JSON
+ *  Makes the view to update a car
  * ************************** */
-invCont.getInventoryJSON = async (req, res, next) => {
-  const classification_id = parseInt(req.params.classification_id)
-  const invData = await invModel.getInventoryByClassificationId(classification_id)
-  if (invData[0].inv_id) {
-    return res.json(invData)
-  } else {
-    next(new Error("No data returned"))
-  }
+invCont.editVehicleView = async function (req, res, next) {
+  const inv_id = parseInt(req.params.inv_id)
+  let nav = await utilities.getNav()
+  //const accountHeader = utilities.accountHeader(res);
+  let itemData = await invModel.getCarByInvId(inv_id)
+  itemData = itemData[0]
+  const classification_list = await utilities.buildClassificationList(itemData.classification_id)
+  const itemName = `${itemData.inv_make} ${itemData.inv_model}`
+  res.render("./inventory/edit-vehicle", {
+    title: "Edit " + itemName,
+    nav,
+    //accountHeader,
+    classification_list: classification_list,
+    errors: null,
+    inv_id: itemData.inv_id,
+    inv_make: itemData.inv_make,
+    inv_model: itemData.inv_model,
+    inv_year: itemData.inv_year,
+    inv_description: itemData.inv_description,
+    inv_image: itemData.inv_image,
+    inv_thumbnail: itemData.inv_thumbnail,
+    inv_price: itemData.inv_price,
+    inv_miles: itemData.inv_miles,
+    inv_color: itemData.inv_color,
+    classification_id: itemData.classification_id
+  })
 }
-
-
-module.exports = invCont;
+module.exports = invCont

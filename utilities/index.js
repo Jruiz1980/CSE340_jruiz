@@ -101,7 +101,7 @@ utilities.buildClassificationGrid = async function (data) {
   return grid;
 };
 
-utilities.buildClassificationList = async function(classification_id = null) {
+utilities.buildClassificationList = async function(classification_id = 1) {
   let data = await invModel.getClassifications()
   let classification_list = '<select name="classification_id" id="classificationList">'
   classification_list += "<option>Choose a Classification</option>"

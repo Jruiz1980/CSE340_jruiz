@@ -75,8 +75,10 @@
                         placeholder="Enter the color" value="<%= locals.inv_color %>" oninput="setInputColor(this)">
                     </div>
                     <div class="form-group">
-                      <button type="submit">Update Vehicle</button>
+                      <button id="updateSbmt" type="submit">Update Vehicle</button>
                     </div>
                   </form>
                   <script src="../../js/update.js"></script>
+                  <input type="hidden" name="inv_id" <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+                    <% } %>>
 </div>

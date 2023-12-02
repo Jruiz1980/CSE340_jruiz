@@ -5,57 +5,49 @@ const invController = require("../controllers/invController");
 const invValidate = require("../utilities/inventory-validation");
 const utilities = require("../utilities");
 
-
 // Route to build inventory by classification view
 router.get(
   "/type/:classificationId",
-  utilities.handleErrors(invController.buildByClassificationId),
+  utilities.handleErrors(invController.buildByClassificationId)
 );
 
 // Route for detail view
 router.get(
   "/detail/:inv_id",
-  utilities.handleErrors(invController.buildDetailViewById),
+  utilities.handleErrors(invController.buildDetailViewById)
 );
 
 // Route to build the inventory management view
 router.get("/", utilities.handleErrors(invController.renderManagementView));
 
 // Get the view to manage vehicles
-router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+router.get(
+  "/getInventory/:classification_id",
+  utilities.handleErrors(invController.getInventoryJSON)
+);
 
-// Edit a vehicle 
-router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventory))
+// Edit a vehicle
+router.get(
+  "/edit/:inv_id",
+  utilities.handleErrors(invController.editVehicleView)
+);
 
 // Delete a vehicle view
-router.get("/delete/:inv_id", utilities.handleErrors(invController.deleteInventory))
+router.get(
+  "/delete/:inv_id",
+  utilities.handleErrors(invController.deleteInventory)
+);
 
 // Route to build the add new classification view
 router.get(
   "/add-classification",
-  utilities.handleErrors(invController.renderAddClassificationView),
-);
-
-// Process the add-classification attempt
-router.post(
-  "/add-classification",
-  invValidate.addClassificationRules(),
-  invValidate.checkClassData,
-  utilities.handleErrors(invController.addClassification),
+  utilities.handleErrors(invController.renderAddClassificationView)
 );
 
 // Route to build the add new vehicle view
 router.get(
   "/add-vehicle",
-  utilities.handleErrors(invController.renderAddVehicleView),
-);
-
-// Process adding new vehicle
-router.post(
-  "/add-vehicle",
-  invValidate.addVehicleRules(),
-  invValidate.checkVehicleData,
-  utilities.handleErrors(invController.addVehicle),
+  utilities.handleErrors(invController.renderAddVehicleView)
 );
 
 // New route for rendering the 'add-vehicle' view with the classification dropdown
@@ -65,10 +57,26 @@ router.get("/add-vehicle", async (req, res) => {
     req,
     res,
     null,
-    selectedClassificationId,
+    selectedClassificationId
   );
   res.render("add-vehicle", { dropdown });
 });
+
+// Process the add-classification attempt
+router.post(
+  "/add-classification",
+  invValidate.addClassificationRules(),
+  invValidate.checkClassData,
+  utilities.handleErrors(invController.addClassification)
+);
+
+// Process adding new vehicle
+router.post(
+  "/add-vehicle",
+  invValidate.addVehicleRules(),
+  invValidate.checkVehicleData,
+  utilities.handleErrors(invController.addVehicle)
+);
 
 // Add a catch-all route for 404 errors
 router.use(utilities.handleErrors);
