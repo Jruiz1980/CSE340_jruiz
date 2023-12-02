@@ -10,5 +10,5 @@
       "database": "CSE340"
     }
   ],
-  "editor.inlineSuggest.showToolbar": "always"
+  "editor.inlineSuggest.showToolbar": "onHover"
 }

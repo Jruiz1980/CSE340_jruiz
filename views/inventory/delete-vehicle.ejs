@@ -18,11 +18,7 @@
                 </ul>
                 <% } %>
 
-                  <form action="/inv/update" method="POST" id="add-class-form">
-                    <div class="form-group">
-                      <label for="classification_id">Classification:</label>
-                    <%- classification_list %> <%# locals.classification_id %>
-                    </div>
+                  <form action="/inv/delete" method="POST" id="add-class-form">
                     <div class="form-group">
                       <label for="inv_make">Make:</label>
                       <input type="text" id="inv_make" name="inv_make" required minlength="3"
@@ -75,10 +71,9 @@
                         placeholder="Enter the color" value="<%= locals.inv_color %>" oninput="setInputColor(this)">
                     </div>
                     <div class="form-group">
-                      <button id="updateSbmt" type="submit"disabled>Update Vehicle</button>
+                      <button id="deleteSbmt" type="submit">Delete Vehicle</button>
                       <input type="hidden" name="inv_id" <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
                         <% } %>>
                     </div>
                   </form>
-                  <script src="../../js/update.js"></script>
 </div>

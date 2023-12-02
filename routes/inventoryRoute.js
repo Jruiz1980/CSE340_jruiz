@@ -26,18 +26,6 @@ router.get(
   utilities.handleErrors(invController.getInventoryJSON)
 );
 
-// Edit a vehicle
-router.get(
-  "/edit/:inv_id",
-  utilities.handleErrors(invController.editVehicleView)
-);
-
-// Delete a vehicle view
-router.get(
-  "/delete/:inv_id",
-  utilities.handleErrors(invController.deleteInventory)
-);
-
 // Route to build the add new classification view
 router.get(
   "/add-classification",
@@ -62,6 +50,19 @@ router.get("/add-vehicle", async (req, res) => {
   res.render("add-vehicle", { dropdown });
 });
 
+// Edit a vehicle
+router.get(
+  "/edit/:inv_id",
+  utilities.handleErrors(invController.editVehicleView)
+);
+
+// Delete a vehicle view
+router.get(
+  "/delete/:inv_id",
+  utilities.handleErrors(invController.deleteVehicleView)
+);
+
+
 // Process the add-classification attempt
 router.post(
   "/add-classification",
@@ -77,6 +78,15 @@ router.post(
   invValidate.checkVehicleData,
   utilities.handleErrors(invController.addVehicle)
 );
+
+//Process editing vehicle 
+router.post("/update",
+invValidate.addVehicleRules(),
+invValidate.checkUpdateData,
+utilities.handleErrors(invController.updateInventory))
+
+// Delete a vehicle
+router.post("/delete", utilities.handleErrors(invController.deleteInventory))
 
 // Add a catch-all route for 404 errors
 router.use(utilities.handleErrors);
