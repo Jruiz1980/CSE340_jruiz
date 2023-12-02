@@ -19,7 +19,16 @@ router.get(
 );
 
 // Route to build the inventory management view
-router.get("", utilities.handleErrors(invController.renderManagementView));
+router.get("/", utilities.handleErrors(invController.renderManagementView));
+
+// Get the view to manage vehicles
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
+// Edit a vehicle 
+router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventory))
+
+// Delete a vehicle view
+router.get("/delete/:inv_id", utilities.handleErrors(invController.deleteInventory))
 
 // Route to build the add new classification view
 router.get(
@@ -48,9 +57,6 @@ router.post(
   invValidate.checkVehicleData,
   utilities.handleErrors(invController.addVehicle),
 );
-
-// Get the view to manage vehicles
-router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 
 // New route for rendering the 'add-vehicle' view with the classification dropdown
 router.get("/add-vehicle", async (req, res) => {

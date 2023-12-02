@@ -101,6 +101,22 @@ utilities.buildClassificationGrid = async function (data) {
   return grid;
 };
 
+utilities.buildClassificationList = async function(classification_id = null) {
+  let data = await invModel.getClassifications()
+  let classification_list = '<select name="classification_id" id="classificationList">'
+  classification_list += "<option>Choose a Classification</option>"
+  data.rows.forEach((row) => {
+    classification_list += '<option value="' + row.classification_id + '"'
+    if (classification_id != null && row.classification_id == classification_id)
+    {
+      classification_list += " selected "
+    }
+    classification_list += ">" + row.classification_name + "</option>"
+  })
+  classification_list += "</select>"
+  return classification_list
+}
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for
