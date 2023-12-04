@@ -28,6 +28,12 @@ router.get(
   "/register",
   utilities.handleErrors(accountController.buildRegister),
 );
+
+router.get(
+    "/logout",
+    utilities.handleErrors(accountController.accountLogout),
+);
+
 // Process the register attempt
 router.post(
   "/register",

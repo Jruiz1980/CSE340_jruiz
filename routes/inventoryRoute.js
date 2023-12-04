@@ -86,7 +86,7 @@ invValidate.checkUpdateData,
 utilities.handleErrors(invController.updateInventory))
 
 // Delete a vehicle
-router.post("/delete", utilities.handleErrors(invController.deleteInventory))
+router.post("/delete", utilities.handleErrors(invController.deleteVehicle))
 
 // Add a catch-all route for 404 errors
 router.use(utilities.handleErrors);

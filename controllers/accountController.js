@@ -6,6 +6,7 @@ const { body } = require("express-validator");
 require("dotenv").config();
 
 const accountController = {};
+
 /* *******************
  *  Deliver login view
  * ******************** */
@@ -123,6 +124,11 @@ accountController.accountLogin = async function (req, res) {
     return new Error("Access Forbidden");
   }
 };
+
+accountController.accountLogout = async function (req, res) {
+    res.clearCookie("jwt");
+    res.redirect("/");
+}
 
 /* ****************************************
  *  Deliver account management view
