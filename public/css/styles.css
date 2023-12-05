@@ -333,7 +333,25 @@
     align-items: center;
   }
 
-  /*****Add new vehicle******/
+  /*****UPDATE ACCOUNT******/
+
+    .update-wrapper {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #4c96d7;
+      width: 65%;
+      margin: 0 auto;
+      background-color: #094e8a;
+      color: white;
+      padding-bottom: 30px;
+      align-items: center;
+    }
+}
+
+.update-form {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1rem;
 }
 /*---------------------------------------------------------------------------------------
 *****************************************************************************************
@@ -426,6 +444,10 @@
     margin: 1%;
   }
 }
+
+/******update account********/
+
+
 
 /*---------------------------------------------------------------------------------------
 *****************************************************************************************

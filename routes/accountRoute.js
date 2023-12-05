@@ -34,6 +34,11 @@ router.get(
     utilities.handleErrors(accountController.accountLogout),
 );
 
+router.get(
+  "/update/:accountId",
+  utilities.handleErrors(accountController.updateAccount)
+);
+
 // Process the register attempt
 router.post(
   "/register",
@@ -49,5 +54,20 @@ router.post(
   regValidate.checkLogData,
   utilities.handleErrors(accountController.accountLogin),
 );
+
+router.post(
+  "/update/accountInfo",
+  regValidate.updateAccountInfoRules(),
+  regValidate.checkUpdateAccountInfoData,
+  utilities.handleErrors(accountController.updateAccountInfo)
+);
+
+router.post(
+  "/update/accountPassword",
+  regValidate.updateAccountPasswordRules(),
+  regValidate.checkUpdateAccountPasswordData,
+  utilities.handleErrors(accountController.updateAccountPassword)
+);
+
 
 module.exports = router;
