@@ -353,6 +353,19 @@
     flex-direction: column;
     padding-bottom: 1rem;
 }
+.update--form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width:75%;
+}
+.form-password{
+  padding: 1rem;
+}
+.form-show-password {
+  display:flex;
+  margin:0 auto;
+}
 /*---------------------------------------------------------------------------------------
 *****************************************************************************************
 ---------------------------------------------------------------------------------------*/

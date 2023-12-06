@@ -10,7 +10,7 @@
       "database": "CSE340"
     }
   ],
-  "editor.inlineSuggest.showToolbar": "onHover",
+  "editor.inlineSuggest.showToolbar": "always",
   "editor.tabSize": 2,
   "editor.fontFamily": "'cascadia code', 'Courier New', monospace",
   "editor.fontLigatures": true

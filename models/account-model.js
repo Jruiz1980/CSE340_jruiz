@@ -66,23 +66,48 @@ async function getAccountById(account_id) {
     return error.message;
   }
 }
-
+/*
 async function updateAccount(accountData) {
-  const updateQuery = `
-        UPDATE account
+  try {
+    const sql = `
+        UPDATE public.account
         SET account_firstname = $1,
             account_lastname  = $2,
             account_email     = $3
         WHERE account_id = $4
+        RETURNING *
     `;
+    // Request query
+    const update = await pool.query(sql, [
+      accountData.account_firstname,
+      accountData.account_lastname,
+      accountData.account_email,
+      accountData.account_id,
+    ]);
+    return update.rows[0];
+  } catch (error) {
+    return error.message;
+  }
+}*/
 
-  // Request query
-  await pool.query(updateQuery, [
-    accountData.account_firstname,
-    accountData.account_lastname,
-    accountData.account_email,
-    accountData.account_id,
-  ]);
+async function updateAccountName(
+  account_firstname,
+  account_lastname,
+  account_email,
+  account_id
+) {
+  try {
+    const sql = `UPDATE public.account SET account_firstname = $1, account_lastname = $2, account_email = $3 WHERE account_id = $4 RETURNING *`;
+    const data = await pool.query(sql, [
+      account_firstname,
+      account_lastname,
+      account_email,
+      account_id,
+    ]);
+    return data.rows[0];
+  } catch (error) {
+    console.error("model error: " + error);
+  }
 }
 
 module.exports = {
@@ -90,5 +115,5 @@ module.exports = {
   registerAccount,
   getAccountByEmail,
   getAccountById,
-  updateAccount
+  updateAccountName
 };

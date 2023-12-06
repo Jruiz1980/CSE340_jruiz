@@ -208,4 +208,38 @@ utilities.checkLogin = (req, res, next) => {
   }
 };
 
+
+utilities.checkAdmin = (req, res, next) => {
+  /*if (res.locals.loggedin) {
+    const account = res.locals.accountData;
+
+    if (
+      account.account_type === "Admin" ||
+      account.account_type === "Employee"
+    ) {
+      next();
+    } else {
+      res.redirect("/");
+      return;
+    }
+  } else {
+    res.redirect("/account/login");
+    return;
+  }*/
+
+  if (
+    res.locals.loggedin &&
+    (res.locals.accountData.account_type === "Admin" ||
+      res.locals.accountData.account_type === "Employee")
+  ) {
+    next();
+  } else {
+    req.flash(
+      "notice",
+      "Please log in to an account with sufficient permissions."
+    );
+    return res.redirect("/account/login");
+  }
+};
+
 module.exports = utilities;

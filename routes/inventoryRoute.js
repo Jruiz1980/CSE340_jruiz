@@ -29,12 +29,14 @@ router.get(
 // Route to build the add new classification view
 router.get(
   "/add-classification",
+  utilities.checkAdmin,
   utilities.handleErrors(invController.renderAddClassificationView)
 );
 
 // Route to build the add new vehicle view
 router.get(
   "/add-vehicle",
+  utilities.checkAdmin,
   utilities.handleErrors(invController.renderAddVehicleView)
 );
 
@@ -53,12 +55,14 @@ router.get("/add-vehicle", async (req, res) => {
 // Edit a vehicle
 router.get(
   "/edit/:inv_id",
+  utilities.checkAdmin,
   utilities.handleErrors(invController.editVehicleView)
 );
 
 // Delete a vehicle view
 router.get(
   "/delete/:inv_id",
+  utilities.checkAdmin,
   utilities.handleErrors(invController.deleteVehicleView)
 );
 
@@ -66,6 +70,7 @@ router.get(
 // Process the add-classification attempt
 router.post(
   "/add-classification",
+  utilities.checkAdmin,
   invValidate.addClassificationRules(),
   invValidate.checkClassData,
   utilities.handleErrors(invController.addClassification)
@@ -74,19 +79,27 @@ router.post(
 // Process adding new vehicle
 router.post(
   "/add-vehicle",
+  utilities.checkAdmin,
   invValidate.addVehicleRules(),
   invValidate.checkVehicleData,
   utilities.handleErrors(invController.addVehicle)
 );
 
 //Process editing vehicle 
-router.post("/update",
-invValidate.addVehicleRules(),
-invValidate.checkUpdateData,
-utilities.handleErrors(invController.updateInventory))
+router.post(
+  "/update",
+  utilities.checkAdmin,
+  invValidate.addVehicleRules(),
+  invValidate.checkUpdateData,
+  utilities.handleErrors(invController.updateInventory)
+);
 
 // Delete a vehicle
-router.post("/delete", utilities.handleErrors(invController.deleteVehicle))
+router.post(
+  "/delete",
+  utilities.checkAdmin,
+  utilities.handleErrors(invController.deleteVehicle)
+);
 
 // Add a catch-all route for 404 errors
 router.use(utilities.handleErrors);

@@ -204,7 +204,6 @@ inv_validate.checkUpdateData = async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav();
-    //let classificationDropdown = await utilities.getDropdownList();
     res.render("inventory/edit-vehicle", {
       errors,
       title: "Edit Vehicle",

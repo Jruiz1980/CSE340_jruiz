@@ -152,7 +152,7 @@ validate.updateAccountInfoRules = () => {
 };
 
 validate.checkUpdateAccountInfoData = async (req, res, next) => {
-  const { account_name, account_lastname, account_email } = req.body;
+  const { account_firstname, account_lastname, account_email } = req.body;
   let errors = [];
   errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -161,7 +161,7 @@ validate.checkUpdateAccountInfoData = async (req, res, next) => {
       errors,
       title: "Update Account",
       nav,
-      account_name,
+      account_firstname,
       account_lastname,
       account_email,
     });
