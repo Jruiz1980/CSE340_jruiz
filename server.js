@@ -18,6 +18,10 @@ const pool = require("./database/");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
+/* ***********************
+* Constants
+*************************/
+
 const app = express();
 
 /* ***********************
@@ -76,6 +80,10 @@ app.use(async (req, res, next) => {
 /*********************
  * Middleware
  **********************/
+
+// Only Employee or Admin get the manage
+//app.use("/inv", isEmployeeOrAdmin)
+
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   const errorMessage = {

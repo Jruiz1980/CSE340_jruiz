@@ -2,6 +2,7 @@ const invModel = require("../models/inventory-model");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
+
 const utilities = {};
 
 /* ************************
@@ -240,6 +241,6 @@ utilities.checkAdmin = (req, res, next) => {
     );
     return res.redirect("/account/login");
   }
-};
+}
 
 module.exports = utilities;
