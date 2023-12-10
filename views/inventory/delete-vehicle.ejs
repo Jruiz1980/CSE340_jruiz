@@ -10,7 +10,7 @@
             <% let errors=locals.errors %>
               <% if (errors) { %>
                 <ul class="notice">
-                  <% errors.array().forEach(error=> { %>
+                  <% errors.array().forEach(error => { %>
                     <li>
                       <%= error.msg %>
                     </li>
@@ -22,53 +22,53 @@
 
                     <div class="form-group">
                       <label for="inv_make">Make:</label>
-                      <input type="text" id="inv_make" name="inv_make" required minlength="3"
+                      <input type="text" id="inv_make" name="inv_make" minlength="3"
                         placeholder="Enter at least 3 characters" value="<%= locals.inv_make %>"
-                        oninput="setInputColor(this)" title="The Make must contain at least 3 characters.">
+                        oninput="setInputColor(blue)" title="The Make must contain at least 3 characters.">
                     </div>
                     <div class="form-group">
                       <label for="inv_model">Model:</label>
-                      <input type="text" id="inv_model" name="inv_model" required minlength="3"
+                      <input type="text" id="inv_model" name="inv_model" minlength="3"
                         placeholder="Enter at least 3 characters" value="<%= locals.inv_model %>"
-                        oninput="setInputColor(this)" title="The Make must contain at least 3 characters.">
+                        oninput="setInputColor(blue)" title="The Make must contain at least 3 characters.">
                     </div>
                     <div class="form-group">
                       <label for="inv_description">Description:</label>
-                      <input type="text" id="inv_description" name="inv_description" required
+                      <input type="text" id="inv_description" name="inv_description"
                         placeholder="Enter a description for the vehicle" value="<%= locals.inv_description %>"
-                        oninput="setInputColor(this)">
+                        oninput="setInputColor(blue)">
                     </div>
                     <div class="form-group">
                       <label for="inv_image">Image Path:</label>
-                      <input type="text" id="inv_image" name="inv_image" required value="/images/vehicles/no-image.png"
-                        oninput="setInputColor(this)">
+                      <input type="text" id="inv_image" name="inv_image" value="/images/vehicles/no-image.png"
+                        oninput="setInputColor(yellow)">
                     </div>
                     <div class="form-group">
                       <label for="inv_thumbnail">Thumbnail Path:</label>
-                      <input type="text" id="inv_thumbnail" name="inv_thumbnail" required
+                      <input type="text" id="inv_thumbnail" name="inv_thumbnail"
                         value="/images/vehicles/no-image.png" oninput="setInputColor(this)">
                     </div>
                     <div class="form-group">
                       <label for="inv_price">Price:</label>
-                      <input type="text" id="inv_price" name="inv_price" required pattern="^[0-9]+(\.[0-9]{1,2})?$"
+                      <input type="text" id="inv_price" name="inv_price" pattern="^[0-9]+(\.[0-9]{1,2})?$"
                         placeholder="Decimal or interger" value="<%= locals.inv_price %>" oninput="setInputColor(this)"
                         title="The Price may be a decimal or interger but cannot be more than 2 digits past the decimal.">
                     </div>
                     <div class="form-group">
                       <label for="inv_year">Year:</label>
-                      <input type="text" id="inv_year" name="inv_year" required pattern="^[1-9][0-9][0-9][0-9]$"
+                      <input type="text" id="inv_year" name="inv_year" pattern="^[1-9][0-9][0-9][0-9]$"
                         placeholder="Enter a 4 digit year" value="<%= locals.inv_year %>" oninput="setInputColor(this)"
                         title="The Year must be 4 digits.">
                     </div>
                     <div class="form-group">
                       <label for="inv_miles">Miles:</label>
-                      <input type="text" id="inv_miles" name="inv_miles" required pattern="^[0-9]+$"
+                      <input type="text" id="inv_miles" name="inv_miles" pattern="^[0-9]+$"
                         placeholder="Enter miles" value="<%= locals.inv_miles %>" oninput="setInputColor(this)"
                         title="The Miles must be numerical only.">
                     </div>
                     <div class="form-group">
                       <label for="inv_color">Color:</label>
-                      <input type="text" id="inv_color" name="inv_color" required pattern="[A-Za-z]+"
+                      <input type="text" id="inv_color" name="inv_color" pattern="[A-Za-z]+"
                         placeholder="Enter the color" value="<%= locals.inv_color %>" oninput="setInputColor(this)">
                     </div>
                     <div class="form-group">

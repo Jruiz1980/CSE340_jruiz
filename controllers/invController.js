@@ -306,7 +306,7 @@ invCont.updateInventory = async function (req, res, next) {
 /* ***************************
  *  Delete view for a car
  * ************************** */
-invCont.deleteVehicleView = async function (req, res, next) {
+invCont.deleteVehicleView = async function (req, res) {
   const inv_id = parseInt(req.params.inv_id)
   let nav = await utilities.getNav()
   //const accountHeader = utilities.accountHeader(res);
@@ -314,7 +314,7 @@ invCont.deleteVehicleView = async function (req, res, next) {
   itemData = itemData[0]
   const itemName = `${itemData.inv_make} ${itemData.inv_model}`
   res.render("./inventory/delete-vehicle", {
-    title: "Edit " + itemName,
+    title: "Delete " + itemName,
     nav,
     //accountHeader,
     errors: null,
@@ -324,35 +324,39 @@ invCont.deleteVehicleView = async function (req, res, next) {
     inv_year: itemData.inv_year,
     inv_price: itemData.inv_price
   })
+  
 }
 
 /* ****************************************
 *  Delete a car
 * *************************************** */
 invCont.deleteVehicle = async function (req, res, next) {
-  let nav = await utilities.getNav()
+  let nav = await utilities.getNav();
   //const accountHeader = utilities.accountHeader(res);
-  const { inv_id } = req.body
-  const deleteResult = await invModel.delInventoryById(inv_id)
-
+  const { inv_id, inv_make, inv_model } = req.body;
+  const deleteResult = await invModel.delInventoryById(inv_id, inv_make, inv_model)
+  //const {inv_make, inv_model} = deleteResult
+  /*res.locals.accountData.inv_make = deleteResult.inv_make
+  res.locals.accountData.inv_model = deleteResult.inv_model*/
   if (deleteResult) {
-    var itemName = deleteResult.inv_make + " " + deleteResult.inv_model
-    req.flash("notice", `The ${itemName} was successfully updated.`)
-    res.redirect("/inv/")
+    var itemName = deleteResult.inv_make + " " + deleteResult.inv_model;
+    console.log(inv_make, inv_model)
+    req.flash("notice", `The ${inv_make} ${inv_model} was successfully deleted.`);
+    res.redirect("/inv/");
   } else {
-    var itemName = `${inv_make} ${inv_model}`
-    req.flash("notice", "Sorry, the insert failed.")
+    var itemName = `${inv_make} ${inv_model}`;
+    req.flash("notice", "Sorry, the delete failed.");
     res.status(501).render("inventory/edit-vehicle", {
-    title: "Edit " + itemName,
-    nav,
-    //accountHeader,
-    errors: null,
-    inv_id,
-    inv_make,
-    inv_model,
-    inv_year,
-    inv_price,
-    })
+      title: "Edit " + itemName,
+      nav,
+      //accountHeader,
+      errors: null,
+      inv_id,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_price,
+    });
   }
 }
 
