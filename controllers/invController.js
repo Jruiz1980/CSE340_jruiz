@@ -335,11 +335,11 @@ invCont.deleteVehicle = async function (req, res, next) {
   //const accountHeader = utilities.accountHeader(res);
   const { inv_id, inv_make, inv_model } = req.body;
   const deleteResult = await invModel.delInventoryById(inv_id, inv_make, inv_model)
-  //const {inv_make, inv_model} = deleteResult
-  /*res.locals.accountData.inv_make = deleteResult.inv_make
+  /*const {inv_make, inv_model} = deleteResult
+  res.locals.accountData.inv_make = deleteResult.inv_make
   res.locals.accountData.inv_model = deleteResult.inv_model*/
   if (deleteResult) {
-    var itemName = deleteResult.inv_make + " " + deleteResult.inv_model;
+    //var itemName = deleteResult.inv_make + " " + deleteResult.inv_model;
     console.log(inv_make, inv_model)
     req.flash("notice", `The ${inv_make} ${inv_model} was successfully deleted.`);
     res.redirect("/inv/");
